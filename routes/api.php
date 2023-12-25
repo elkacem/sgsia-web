@@ -122,6 +122,7 @@ Route::post('/login', function (Request $request) {
     ], 201);
 });
 
+
 Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
     $request->user()->currentAccessToken()->delete();
     return response()->json('Logged out', 200);
