@@ -127,3 +127,19 @@ Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
     $request->user()->currentAccessToken()->delete();
     return response()->json('Logged out', 200);
 });
+
+Route::post('/register', function (Request $request) {
+    $request->validate([
+        'name' => 'required'
+        'email' => 'required|email|unique:users',
+        'username' => 'required|min:4|unique:users',
+        'password' => 'required|min:6|confirmed',
+        'device_name' => 'required',
+    ]);
+
+    $user = User::create([
+        'name' => $request
+    ])
+ 
+    
+});
