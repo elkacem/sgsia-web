@@ -137,6 +137,7 @@ Route::post('/register', function (Request $request) {
         'device_name' => 'required',
     ]);
 
+    
     $user = User::create([
         'name' => $request
     ])
