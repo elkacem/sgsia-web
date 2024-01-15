@@ -47,4 +47,9 @@ class User extends Authenticatable
         return $this->hasMany(Surveys::class);
 
     }
+
+    public function surveydepart(){
+        return $this->hasMany(Surveydepart::class);
+
+    }
 }

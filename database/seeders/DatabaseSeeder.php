@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Surveys;
+use App\Models\Surveydepart;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'belo@mail.com', 
         ]);
         Surveys::factory(40)->create();
+        Surveydepart::factory(40)->create();
     }
 }

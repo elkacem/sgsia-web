@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Surveys;
+use App\Models\Surveydepart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -99,6 +100,61 @@ Route::post('/surveys', function(Request $request) {
     ]);
 });
 
+Route::get('/departs', function() {
+    return Surveydepart::all();
+});
+
+Route::post('/surveydepart', function(Request $request) {
+    $request -> validate([
+        'terminal'              => 'required',
+        'company'                => 'required',
+
+        'chariot_disp'          => 'required',
+        'chariot_qualite'       => 'required',
+        'hall_confort'          => 'required',
+        'hall_qualite'          => 'required',
+        'hall_sonore'           => 'required',
+        'info_orie_agents'      => 'required',
+        'info_orie_qualite'     => 'required',
+        'zone_confort_s'        => 'required',
+        'zone_qualite'          => 'required',
+        'zone_sonore'           => 'required',
+        'confort_hall'          => 'required',
+        'confort_zone'          => 'required',
+        'signalisation_parking' => 'required',
+        'signalisation_chariot' => 'required',
+        'signalisation_hall'    => 'required',
+        
+        'suggestion' => 'required'
+    ]);
+
+    return Surveydepart::create([
+        'user_id' => 1,
+        
+        'terminal'              => $request->terminal               ,
+        'company'                => $request->company                 ,
+
+        'chariot_disp'          => $request->chariot_disp           ,
+        'chariot_qualite'       => $request->chariot_qualite        ,
+        'hall_confort'          => $request->hall_confort          ,
+        'hall_qualite'          => $request->hall_qualite           ,
+        'hall_sonore'           => $request->hall_sonore           ,
+        'info_orie_agents'      => $request->info_orie_agents      ,
+        'info_orie_qualite'     => $request->info_orie_qualite      ,
+        'zone_confort_s'        => $request->zone_confort_s        ,
+        'zone_qualite'          => $request->zone_qualite          ,
+        'zone_sonore'           => $request->zone_sonore            ,
+        'confort_hall'          => $request->confort_hall          ,
+        'confort_zone'          => $request->confort_zone           ,
+        'signalisation_parking' => $request->signalisation_parking  ,
+        'signalisation_chariot' => $request->signalisation_chariot  ,
+        'signalisation_hall'    => $request->signalisation_hall     ,
+
+        'suggestion' => $request->suggestion,
+    ]);
+});
+
+
 
 Route::post('/login', function (Request $request) {
     $request->validate([
@@ -128,19 +184,19 @@ Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
     return response()->json('Logged out', 200);
 });
 
-Route::post('/register', function (Request $request) {
-    $request->validate([
-        'name' => 'required'
-        'email' => 'required|email|unique:users',
-        'username' => 'required|min:4|unique:users',
-        'password' => 'required|min:6|confirmed',
-        'device_name' => 'required',
-    ]);
+// Route::post('/register', function (Request $request) {
+//     $request->validate([
+//         'name' => 'required',
+//         'email' => 'required|email|unique:users',
+//         'username' => 'required|min:4|unique:users',
+//         'password' => 'required|min:6|confirmed',
+//         'device_name' => 'required',
+//     ]);
 
     
-    $user = User::create([
-        'name' => $request
-    ])
+    // $user = User::create([
+    //     'name' => $request
+    // ])
  
     
-});
+// });
