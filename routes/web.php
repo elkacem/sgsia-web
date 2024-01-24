@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'] , function() {
 
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'] )-> name('home');
+
     // Route::get('/linkstorage', function () {
     //     Artisan::call('storage:link');
     // });
@@ -28,15 +30,16 @@ Route::group(['middleware' => 'auth'] , function() {
 
     Route::get('/analytics', function() {
         // $category_name = '';
-        $data = [
-            'category_name' => 'dashboard',
-            'page_name' => 'analytics',
-            'has_scrollspy' => 0,
-            'scrollspy_offset' => '',
-            'alt_menu' => 0,
-        ];
+        // $data = [
+        //     'category_name' => 'dashboard',
+        //     'page_name' => 'analytics',
+        //     'has_scrollspy' => 0,
+        //     'scrollspy_offset' => '',
+        //     'alt_menu' => 0,
+        // ];
         // $pageName = 'analytics';
-        return view('dashboard')->with($data);
+        // return view('dashboard')->with($data);
+        return view('layouts.auth');
     });
     
     Route::get('/sales', function() {
@@ -51,6 +54,26 @@ Route::group(['middleware' => 'auth'] , function() {
         // $pageName = 'sales';
         return view('dashboard2')->with($data);
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
