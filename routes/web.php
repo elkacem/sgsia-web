@@ -22,38 +22,45 @@ Route::group(['middleware' => 'auth'] , function() {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'] )-> name('home');
 
+    Route::get('/touesta', [App\Http\Controllers\HomeController::class, 'toarrive'] )-> name('toarrive');
+    Route::get('/touestd', [App\Http\Controllers\HomeController::class, 'todepart'] )-> name('todepart');
+
+    Route::get('/tonea', [App\Http\Controllers\HomeController::class, 'tonearrive'] )-> name('tonearrive');
+    Route::get('/toned', [App\Http\Controllers\HomeController::class, 'tonedepart'] )-> name('tonedepart');
+    
+
     // Route::get('/linkstorage', function () {
     //     Artisan::call('storage:link');
     // });
 
     // $this->middleware
 
-    Route::get('/analytics', function() {
-        // $category_name = '';
-        // $data = [
-        //     'category_name' => 'dashboard',
-        //     'page_name' => 'analytics',
-        //     'has_scrollspy' => 0,
-        //     'scrollspy_offset' => '',
-        //     'alt_menu' => 0,
-        // ];
-        // $pageName = 'analytics';
-        // return view('dashboard')->with($data);
-        return view('layouts.auth');
-    });
+    // Route::get('/analytics', function() {
+    //     // $category_name = '';
+    //     // $data = [
+    //     //     'category_name' => 'dashboard',
+    //     //     'page_name' => 'analytics',
+    //     //     'has_scrollspy' => 0,
+    //     //     'scrollspy_offset' => '',
+    //     //     'alt_menu' => 0,
+    //     // ];
+    //     // $pageName = 'analytics';
+    //     // return view('dashboard')->with($data);
+    //     return view('layouts.auth');
+    // });
     
-    Route::get('/sales', function() {
-        // $category_name = '';
-        $data = [
-            'category_name' => 'dashboard',
-            'page_name' => 'sales',
-            'has_scrollspy' => 0,
-            'scrollspy_offset' => '',
-            'alt_menu' => 0,
-        ];
-        // $pageName = 'sales';
-        return view('dashboard2')->with($data);
-    });
+    // Route::get('/sales', function() {
+    //     // $category_name = '';
+    //     $data = [
+    //         'category_name' => 'dashboard',
+    //         'page_name' => 'sales',
+    //         'has_scrollspy' => 0,
+    //         'scrollspy_offset' => '',
+    //         'alt_menu' => 0,
+    //     ];
+    //     // $pageName = 'sales';
+    //     return view('dashboard2')->with($data);
+    // });
 
 
 
@@ -1449,5 +1456,5 @@ Route::get('/password/reset', function() {
 });
 
 Route::get('/', function() {
-    return redirect('/sales');    
+    return redirect('/home');    
 });
