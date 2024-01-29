@@ -2,7 +2,7 @@
     <html lang="en">
 
         <head>
-            
+
             <meta charset="utf-8" />
             <title>SGSIA-SURVEY</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
             <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
             <!-- Responsive datatable examples -->
-            <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />  
+            <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
             <!-- Bootstrap Css -->
             <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
@@ -30,13 +30,13 @@
         </head>
 
         <body data-topbar="dark">
-        
+
         <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
             <!-- Begin page -->
             <div id="layout-wrapper">
 
-                
+
                 <header id="page-topbar">
                     <div class="navbar-header">
                         <div class="d-flex">
@@ -76,12 +76,12 @@
                             <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
                                 <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
                                     Mega Menu
-                                    <i class="mdi mdi-chevron-down"></i> 
+                                    <i class="mdi mdi-chevron-down"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-megamenu">
                                     <div class="row">
                                         <div class="col-sm-8">
-                    
+
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <h5 class="font-size-14">UI Components</h5>
@@ -158,7 +158,7 @@
                                                         <li>
                                                             <a href="javascript:void(0);">FAQs</a>
                                                         </li>
-                                            
+
                                                     </ul>
                                                 </div>
                                             </div>
@@ -214,7 +214,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                                     aria-labelledby="page-header-search-dropdown">
-                        
+
                                     <form class="p-3">
                                         <div class="mb-3 m-0">
                                             <div class="input-group">
@@ -234,7 +234,7 @@
                                     <img class="" src="{{ asset('assets/images/flags/us.jpg') }}" alt="Header Language" height="16">
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
-                        
+
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                                         <img src="{{ asset('assets/images/flags/spain.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
@@ -419,7 +419,7 @@
                                     <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end mt-1">11</span><i class="ri-settings-2-line align-middle me-1"></i> Settings</a>
                                     <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle me-1"></i> Lock screen</a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="{{ route('logout') }}" 
+                                    <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();" class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -433,7 +433,7 @@
                                     <i class="ri-settings-2-line"></i>
                                 </button>
                             </div>
-                
+
                         </div>
                     </div>
                 </header>
@@ -467,21 +467,27 @@
                                     </a>
                                 </li>
 
-                                <li>
-                                    <a href="calendar.html" class=" waves-effect">
-                                        <i class="ri-calendar-2-line"></i>
-                                        <span>Calendar</span>
-                                    </a>
-                                </li>
-                    
+
+
                                 <li>
                                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                                         <i class="ri-mail-send-line"></i>
-                                        <span>Email</span>
+                                        <span>Terminal Ouest</span>
                                     </a>
                                     <ul class="sub-menu" aria-expanded="false">
-                                        <li><a href="email-inbox.html">Inbox</a></li>
-                                        <li><a href="email-read.html">Read Email</a></li>
+                                        <li><a href="{{ route('toarrive') }}">Arrive</a></li>
+                                        <li><a href="{{ route('todepart') }}">Depart</a></li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                        <i class="ri-mail-send-line"></i>
+                                        <span>Terminal 1</span>
+                                    </a>
+                                    <ul class="sub-menu" aria-expanded="false">
+                                        <li><a href="{{ route('tonearrive') }}">Arrive</a></li>
+                                        <li><a href="{{ route('tonedepart') }}">Depart</a></li>
                                     </ul>
                                 </li>
 
@@ -569,7 +575,7 @@
                                         <li><a href="ui-typography.html">Typography</a></li>
                                         <li><a href="ui-video.html">Video</a></li>
                                         <li><a href="ui-general.html">General</a></li>
-                            
+
                                     </ul>
                                 </li>
 
@@ -680,7 +686,7 @@
                 </div>
                 <!-- Left Sidebar End -->
 
-                
+
 
                 <!-- ============================================================== -->
                 <!-- Start right Content here -->
@@ -695,7 +701,7 @@
             <div class="right-bar">
                 <div data-simplebar class="h-100">
                     <div class="rightbar-title d-flex align-items-center px-3 py-4">
-                
+
                         <h5 class="m-0 me-2">Settings</h5>
 
                         <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
@@ -716,7 +722,7 @@
                             <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked>
                             <label class="form-check-label" for="light-mode-switch">Light Mode</label>
                         </div>
-        
+
                         <div class="mb-2">
                             <img src="{{ asset('assets/images/layouts/layout-2.jpg') }}" class="img-fluid img-thumbnail" alt="layout-2">
                         </div>
@@ -724,7 +730,7 @@
                             <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" data-bsStyle="{{ asset('assets/css/bootstrap-dark.min.css')}}" data-appStyle="{{ asset('assets/css/app-dark.min.css')}}">
                             <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
                         </div>
-        
+
                         <div class="mb-2">
                             <img src="{{ asset('assets/images/layouts/layout-3.jpg') }}" class="img-fluid img-thumbnail" alt="layout-3">
                         </div>
@@ -733,7 +739,7 @@
                             <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
                         </div>
 
-                
+
                     </div>
 
                 </div> <!-- end slimscroll-menu-->
@@ -750,7 +756,7 @@
             <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
             <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 
-            
+
             <!-- apexcharts -->
             <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
@@ -761,15 +767,42 @@
             <!-- Required datatable js -->
             <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
             <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-            
+
             <!-- Responsive examples -->
             <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
             <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
             <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>
 
+            <!-- for tables -->
+
+
+        <!-- Required datatable js -->
+        <script src="assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <!-- Buttons examples -->
+        <script src="assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+        <script src="assets/libs/jszip/jszip.min.js"></script>
+        <script src="assets/libs/pdfmake/build/pdfmake.min.js"></script>
+        <script src="assets/libs/pdfmake/build/vfs_fonts.js"></script>
+        <script src="assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+        <script src="assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+        <script src="assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+        <script src="assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+
+        <!-- Responsive examples -->
+        <script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+        <!-- Datatable init js -->
+        <script src="assets/js/pages/datatables.init.js"></script>
+
             <!-- App js -->
             <script src="{{ asset('assets/js/app.js') }}"></script>
+
         </body>
 
     </html>
