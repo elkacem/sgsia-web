@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'belo',
-            'email' => 'belo@mail.com', 
+            'email' => 'belo@mail.com',
         ]);
-        Surveys::factory(40)->create();
+        Surveys::factory(100)->create();
         Surveydepart::factory(40)->create();
     }
 }

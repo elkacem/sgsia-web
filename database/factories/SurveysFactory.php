@@ -20,7 +20,7 @@ class SurveysFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            
+
             'status'                => $this-> faker-> randomElement(['depart', 'arrivee']),
             'terminal'              => $this-> faker-> randomElement(['Terminal Ouest', 'Terminal 1', 'Terminal 2']),
             'parking_stationnement' => $this-> faker-> randomElement(['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']),
@@ -51,9 +51,9 @@ class SurveysFactory extends Factory
             'bagage_chariot'        => $this-> faker-> randomElement(['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']),
             'salle_priere'          => $this-> faker-> randomElement(['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']),
             'poubelle'              => $this-> faker-> randomElement(['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']),
-            
+
             'suggestion' => $this-> faker-> sentence(20),
-            'created_at' => $this-> faker-> dateTimeBetween('-30 days', now())
+            'created_at' => $this-> faker-> dateTimeBetween('-12 months', now())
         ];
     }
 }
