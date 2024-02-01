@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
 
@@ -20,38 +20,38 @@
                     </div>
                 </div>
 
-                <canvas id="lineChart" height="300"></canvas>
+                <canvas id="barChartNew" height="300"></canvas>
 
             </div>
         </div>
     </div> <!-- end col -->
 
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
+{{--    <div class="col-lg-6">--}}
+{{--        <div class="card">--}}
+{{--            <div class="card-body">--}}
 
-                <h4 class="card-title mb-4">Bar Chart</h4>
+{{--                <h4 class="card-title mb-4">Bar Chart</h4>--}}
 
-                <div class="row text-center">
-                    <div class="col-4">
-                        <h5 class="mb-0">2541</h5>
-                        <p class="text-muted text-truncate">Activated</p>
-                    </div>
-                    <div class="col-4">
-                        <h5 class="mb-0">84845</h5>
-                        <p class="text-muted text-truncate">Pending</p>
-                    </div>
-                    <div class="col-4">
-                        <h5 class="mb-0">12001</h5>
-                        <p class="text-muted text-truncate">Deactivated</p>
-                    </div>
-                </div>
+{{--                <div class="row text-center">--}}
+{{--                    <div class="col-4">--}}
+{{--                        <h5 class="mb-0">2541</h5>--}}
+{{--                        <p class="text-muted text-truncate">Activated</p>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-4">--}}
+{{--                        <h5 class="mb-0">84845</h5>--}}
+{{--                        <p class="text-muted text-truncate">Pending</p>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-4">--}}
+{{--                        <h5 class="mb-0">12001</h5>--}}
+{{--                        <p class="text-muted text-truncate">Deactivated</p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <canvas id="bar" height="300"></canvas>
+{{--                <canvas id="bar" height="300"></canvas>--}}
 
-            </div>
-        </div>
-    </div> <!-- end col -->
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div> <!-- end col -->--}}
 </div> <!-- end row -->
 
 

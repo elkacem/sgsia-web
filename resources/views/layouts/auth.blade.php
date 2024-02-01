@@ -994,7 +994,64 @@
                     data: {!! json_encode($thisMonth) !!}
                 }]
             });
-            // this.respChart(l("#polarArea"), "PolarArea", {
+
+// New Bar Chart
+            const labelsBarChart = {!! json_encode($criterias) !!};
+            const dataBarChart = {
+                labels: labelsBarChart,
+                datasets: [
+                    {
+                        label: 'safits 1',
+                        data: {!! json_encode($satisfaisantCounts) !!},
+                        backgroundColor: "rgba(28, 187, 140, 0.8)",
+                        borderColor: "rgba(28, 187, 140, 0.8)",
+                    },
+                    {
+                        label: 'm satis 2',
+                        data: {!! json_encode($moyennementSatisfaisantCounts) !!},
+                        backgroundColor: "rgba(84, 56, 220, 0.2)",
+                        borderColor: "#0f9cf3",
+                    },
+                    {
+                        label: 'non satis 3', // Added Dataset 3
+                        data: {!! json_encode($nonSatisfaisantCounts) !!},
+                        backgroundColor: "rgba(255, 99, 132, 0.8)",
+                        borderColor: "rgba(255, 99, 132, 0.8)",
+                    }
+                ]
+            };
+
+            let delayedBarChart;
+            const configBarChart = {
+                type: 'bar',
+                data: dataBarChart,
+                options: {
+                    animation: {
+                        onComplete: () => {
+                            delayedBarChart = true;
+                        },
+                        delay: (context) => {
+                            let delay = 0;
+                            if (context.type === 'data' && context.mode === 'default' && !delayedBarChart) {
+                                delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                            }
+                            return delay;
+                        },
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true
+                        }
+                    }
+                }
+            };
+
+            this.respChart(l("#barChartNew"), "Bar", dataBarChart, configBarChart);
+
+        // this.respChart(l("#polarArea"), "PolarArea", {
             //     datasets: [{
             //         data: [11, 16, 7, 18],
             //         backgroundColor: ["#fcb92c", "#1cbb8c", "#f32f53", "#0f9cf3"],
