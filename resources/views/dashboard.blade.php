@@ -2,13 +2,13 @@
 
 @section('content')
 
-{{$data}}
+{{$report}}
 
 <div class="main-content">
 
                     <div class="page-content">
                         <div class="container-fluid">
-                            
+
                             <!-- start page title -->
                             <div class="row">
                                 <div class="col-12">
@@ -39,10 +39,10 @@
                                                 </div>
                                                 <div class="avatar-sm">
                                                     <span class="avatar-title bg-light text-primary rounded-3">
-                                                        <i class="ri-shopping-cart-2-line font-size-24"></i>  
+                                                        <i class="ri-shopping-cart-2-line font-size-24"></i>
                                                     </span>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                         </div><!-- end cardbody -->
                                     </div><!-- end card -->
                                 </div><!-- end col -->
@@ -57,10 +57,10 @@
                                                 </div>
                                                 <div class="avatar-sm">
                                                     <span class="avatar-title bg-light text-success rounded-3">
-                                                        <i class="mdi mdi-currency-usd font-size-24"></i>  
+                                                        <i class="mdi mdi-currency-usd font-size-24"></i>
                                                     </span>
                                                 </div>
-                                            </div>                                              
+                                            </div>
                                         </div><!-- end cardbody -->
                                     </div><!-- end card -->
                                 </div><!-- end col -->
@@ -75,10 +75,10 @@
                                                 </div>
                                                 <div class="avatar-sm">
                                                     <span class="avatar-title bg-light text-primary rounded-3">
-                                                        <i class="ri-user-3-line font-size-24"></i>  
+                                                        <i class="ri-user-3-line font-size-24"></i>
                                                     </span>
                                                 </div>
-                                            </div>                                              
+                                            </div>
                                         </div><!-- end cardbody -->
                                     </div><!-- end card -->
                                 </div><!-- end col -->
@@ -93,10 +93,10 @@
                                                 </div>
                                                 <div class="avatar-sm">
                                                     <span class="avatar-title bg-light text-success rounded-3">
-                                                        <i class="mdi mdi-currency-btc font-size-24"></i>  
+                                                        <i class="mdi mdi-currency-btc font-size-24"></i>
                                                     </span>
                                                 </div>
-                                            </div>                                              
+                                            </div>
                                         </div><!-- end cardbody -->
                                     </div><!-- end card -->
                                 </div><!-- end col -->
@@ -104,7 +104,7 @@
 
                             <div class="row">
                                 <div class="col-xl-6">
-        
+
                                     <div class="card">
                                         <div class="card-body pb-0">
                                             <div class="float-end d-none d-md-inline-block">
@@ -208,7 +208,7 @@
                                 <!-- end col -->
                             </div>
                             <!-- end row -->
-        
+
                             <div class="row">
                                 <div class="col-xl-8">
                                     <div class="card">
@@ -228,9 +228,9 @@
                                                     <a href="javascript:void(0);" class="dropdown-item">Action</a>
                                                 </div>
                                             </div>
-        
+
                                             <h4 class="card-title mb-4">Latest Transactions</h4>
-        
+
                                             <div class="table-responsive">
                                                 <table class="table table-centered mb-0 align-middle table-hover table-nowrap">
                                                     <thead class="table-light">
@@ -368,7 +368,7 @@
                                                 </select>
                                             </div>
                                             <h4 class="card-title mb-4">Monthly Earnings</h4>
-                                            
+
                                             <div class="row">
                                                 <div class="col-4">
                                                     <div class="text-center mt-4">
@@ -403,10 +403,10 @@
                             </div>
                             <!-- end row -->
                         </div>
-                        
+
                     </div>
                     <!-- End Page-content -->
-                   
+
                     <footer class="footer">
                         <div class="container-fluid">
                             <div class="row">
@@ -421,7 +421,7 @@
                             </div>
                         </div>
                     </footer>
-                    
+
                 </div>
 
 @endsection

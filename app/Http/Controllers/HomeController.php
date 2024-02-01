@@ -68,35 +68,35 @@ class HomeController extends Controller
 
         $columns = [
 
-            'parking_stationnement'     => 'Propreté des places de stationnement',
-            'parking_espace_v'          => 'Propreté des espaces verts',
-            'parking_ap_t'              => 'Propreté des accès piétons au terminal',
-            'hall_public'               => 'Propreté du Hall Public',
-            'hall_escalier'             => 'Propreté des escaliers',
-            'hall_escalator'            => 'Propreté des escalators',
-            'hall_ascenceur'            => 'propreté des ascenseurs',
-            'hall_facade_v'             => 'Propreté des façades vitrées',
-            'hall_chariot'              => 'Propreté des chariots',
-            'hall_siege'                => 'Propreté des sièges',
-            'toilette_sol'              => 'Propreté des sols ',
-            'toilette_lavabo_r'         => 'Propreté des lavabos, robinetteries',
-            'toilette_cuvette'          => 'propreté des cuvettes WC',
-            'toilette_miroir'           => 'Propreté des miroirs',
-            'toilette_urinoir'          => 'Propreté des urinoirs',
-            'toilette_savon_l'          => 'Disponibilité du savon liquide',
-            'toilette_papier_h'         => 'Disponibilité du papier hygiénique',
-            'salle_emb_lieux'           => 'Propreté des lieux',
-            'salle_emb_siege'           => 'Propreté des sièges',
-            'salle_emb_facade_v'        => 'Propreté des façades vitrées',
-//            'passerelle_sol'            => '',
-//            'passerelle_vitre'          => '',
-//            'passerelle_bus'            => '',
-            'bagage_lieux'              => 'Propreté des lieux',
-            'bagage_tapis'              => 'Propreté des tapis à bagages',
-            'bagage_chariot'            => 'Propreté des chariots à bagages',
-            'salle_priere'              => 'Propreté des salles de prières',
-            'poubelle'                  => 'Disponibilité des poubelles',
-//            // Add more columns as needed
+            'parking_stationnement' => 'Propreté des places de stationnement',
+            'parking_espace_v' => 'Propreté des espaces verts',
+            'parking_ap_t' => 'Propreté des accès piétons au terminal',
+//            'hall_public'               => 'Propreté du Hall Public',
+//            'hall_escalier'             => 'Propreté des escaliers',
+//            'hall_escalator'            => 'Propreté des escalators',
+//            'hall_ascenceur'            => 'propreté des ascenseurs',
+//            'hall_facade_v'             => 'Propreté des façades vitrées',
+//            'hall_chariot'              => 'Propreté des chariots',
+            'hall_siege' => 'Propreté des sièges',
+//            'toilette_sol'              => 'Propreté des sols ',
+//            'toilette_lavabo_r'         => 'Propreté des lavabos, robinetteries',
+//            'toilette_cuvette'          => 'propreté des cuvettes WC',
+//            'toilette_miroir'           => 'Propreté des miroirs',
+//            'toilette_urinoir'          => 'Propreté des urinoirs',
+//            'toilette_savon_l'          => 'Disponibilité du savon liquide',
+//            'toilette_papier_h'         => 'Disponibilité du papier hygiénique',
+//            'salle_emb_lieux'           => 'Propreté des lieux',
+//            'salle_emb_siege'           => 'Propreté des sièges',
+//            'salle_emb_facade_v'        => 'Propreté des façades vitrées',
+////            'passerelle_sol'            => '',
+////            'passerelle_vitre'          => '',
+////            'passerelle_bus'            => '',
+//            'bagage_lieux'              => 'Propreté des lieux',
+//            'bagage_tapis'              => 'Propreté des tapis à bagages',
+//            'bagage_chariot'            => 'Propreté des chariots à bagages',
+//            'salle_priere'              => 'Propreté des salles de prières',
+//            'poubelle'                  => 'Disponibilité des poubelles',
+////            // Add more columns as needed
         ];
 
         foreach ($columns as $columnName => $displayName) {
@@ -110,7 +110,7 @@ class HomeController extends Controller
                 ->whereBetween('created_at', [$startDate, $endDate])
                 ->groupBy($columnName)
                 ->groupBy('month')
-                ->orderBy('month')
+                ->orderBy('month', 'asc')
                 ->get();
 
             $result->each(function ($item) use (&$report, $displayName, $columnName) {
@@ -119,134 +119,155 @@ class HomeController extends Controller
                 ];
             });
         }
-//
-//
-//        $parking_stationnement = Surveys::select([
-//            'parking_stationnement',
-//            DB::raw('COUNT(parking_stationnement) as satisfaction'),
-//            DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month")])
+        $criterias = [];
+        foreach ($report as $criteria => $values) {
+            $criterias[] = $criteria;
+        }
+
+
+//        $countValues = Surveys::select(count ( distinct ('parking_stationnement'
+//            , 'parking_espace_v'
+//            , 'parking_ap_t'
+//            , 'hall_public'
+//            , 'hall_escalier'
+//            , 'hall_escalator'
+//            , 'hall_ascenceur'
+//            , 'hall_facade_v'
+//            , 'hall_chariot'
+//            , 'hall_siege'
+//            , 'toilette_sol'
+//            , 'toilette_lavabo_r'
+//            , 'toilette_cuvette'
+//            , 'toilette_miroir'
+//            , 'toilette_urinoir'
+//            , 'toilette_savon_l'
+//            , 'toilette_papier_h'
+//            , 'salle_emb_lieux'
+//            , 'salle_emb_siege'
+//            , 'salle_emb_facade_v'
+//            , 'passerelle_sol'
+//            , 'passerelle_vitre'
+//            , 'passerelle_bus'
+//            , 'bagage_lieux'
+//            , 'bagage_tapis'
+//            , 'bagage_chariot'
+//            , 'salle_priere'
+//            , 'poubelle') ))
 //            ->where('status', '=', 'arrivee')
 //            ->where('terminal', '=', 'Terminal Ouest')
-//            ->whereBetween('created_at', [$startDate, $endDate]) // Filter by the last 12 months
+//            ->where('created_at', '>', Carbon::now()->subMonth(1)->toDateTimeString())
+//            ->get();
+
+
+//        $countValues = Surveys::select('parking_stationnement', \DB::raw('COUNT(*) as count_occurrences'))
+//            ->where('status', '=', 'arrivee')
+//            ->where('terminal', '=', 'Terminal Ouest')
+//            ->whereBetween('created_at', [$startDate, $endDate])
 //            ->groupBy('parking_stationnement')
-//            ->groupBy('month')
 //            ->get();
-//
-//        $parking_stationnement->each(function ($item) use (&$report) {
-//            $report['Propreté des places de stationnement'][$item->month][$item->parking_stationnement] = [
-//                'count' => $item->satisfaction
-//            ];
-//        });
-//
-//        $parking_espace_v = Surveys::select([
-//            'parking_espace_v',
-//            DB::raw('COUNT(parking_espace_v) as satisfaction'),
-//            DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month")])
-//            ->where('status', '=', 'arrivee')
-//            ->where('terminal', '=', 'Terminal Ouest')
-//            ->whereBetween('created_at', [$startDate, $endDate]) // Filter by the last 12 months
-//            ->groupBy('parking_espace_v')
-//            ->groupBy('month')
-//            ->get();
-//
-//        $parking_espace_v->each(function ($item) use (&$report) {
-//            $report['okey'][$item->month][$item->parking_espace_v] = [
-//                'count' => $item->satisfaction
-//            ];
-//        });
-//
 
-//        $endDate = now(); // Current date
-//        $startDate = now()->subMonths(12); // Date 12 months ago
-//
-//        $selectedColumns = [
-//            'parking_stationnement',
-//            'hall_public',
-//            'hall_escalier',
-//            // Add other columns here
-//        ];
-//
-//        $selectExpressions = array_map(function ($column) {
-//            return DB::raw("COUNT($column) as $column");
-//        }, $selectedColumns);
-//
-//        $selectExpressions = array_map(function ($column) {
-//            return DB::raw("COUNT($column) as {$column}_count");
-//        }, $selectedColumns);
-//
-//        $query = Surveys::select([...$selectedColumns, ...$selectExpressions, DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month")])
-//            ->where('status', '=', 'arrivee')
-//            ->where('terminal', '=', 'Terminal Ouest')
-//            ->whereBetween('created_at', [$startDate, $endDate]) // Filter by the last 12 months
-//            ->groupBy([...$selectedColumns, DB::raw("DATE_FORMAT(created_at, '%Y-%m')")])
-//            ->get();
-//
-//
-//        $query->each(function ($item) use (&$report, $selectedColumns) {
-//            $key = array_reduce($selectedColumns, function ($carry, $column) use ($item) {
-//                $carry[$column] = $item->$column;
-//                return $carry;
-//            }, []);
-//
-//            $keyString = json_encode($key);
-//
-//            $counts = array_map(function ($column) use ($item) {
-//                return $item->{$column} ?? 0;
-//            }, $selectedColumns);
-//
-//            $report[$item->month][$keyString] = [
-//                'counts' => $counts
-//            ];
-//        });
+        $countThisMounth = [];
+        foreach ($columns as $columnName => $displayName) {
+            $result = Surveys::select([
+                $columnName,
+                DB::raw("COUNT($columnName) as satisfaction"),
+            ])
+                ->where('status', '=', 'arrivee')
+                ->where('terminal', '=', 'Terminal Ouest')
+                ->where('created_at', '>', Carbon::now()->subMonth(1)->toDateTimeString())
+                ->groupBy($columnName)
+                ->get();
 
+            $result->each(function ($item) use (&$countThisMounth, $displayName, $columnName) {
+                $countThisMounth[$displayName][$item->$columnName] = [
+                    'count' => $item->satisfaction
+                ];
+            });
+        }
+        $nonSatisfaisantCountThis = 0;
+        $moyennementSatisfaisantCountThis = 0;
+        $satisfaisantCountThis = 0;
 
-        $parking_stationnement = Surveys::select('parking_stationnement', DB::raw('COUNT(parking_stationnement) as count'))
-            ->where('status', '=', 'arrivee')
-            ->where('terminal', '=', 'Terminal Ouest')
-            ->where('created_at', '>', Carbon::now()->subMonth(4)->toDateTimeString())
-            ->groupBy('parking_stationnement')
-            ->get();
+        foreach ($countThisMounth as $displayName => $satisfactionLevels) {
+            foreach ($satisfactionLevels as $satisfactionLevel => $satisfactionData) {
+                switch ($satisfactionLevel) {
+                    case 'Non Satisfaisant':
+                        $nonSatisfaisantCountThis += $satisfactionData['count'];
+                        break;
+                    case 'Moyennement Satisfaisant':
+                        $moyennementSatisfaisantCountThis += $satisfactionData['count'];
+                        break;
+                    case 'Satisfaisant':
+                        $satisfaisantCountThis += $satisfactionData['count'];
+                        break;
+                    // Add more cases for other satisfaction levels as needed
+                }
+            }
+        }
 
-        $data = Surveys::select(
-            'parking_stationnement'
-            , 'parking_espace_v'
-            , 'parking_ap_t'
-            , 'hall_public'
-            , 'hall_escalier'
-            , 'hall_escalator'
-            , 'hall_ascenceur'
-            , 'hall_facade_v'
-            , 'hall_chariot'
-            , 'hall_siege'
-            , 'toilette_sol'
-            , 'toilette_lavabo_r'
-            , 'toilette_cuvette'
-            , 'toilette_miroir'
-            , 'toilette_urinoir'
-            , 'toilette_savon_l'
-            , 'toilette_papier_h'
-            , 'salle_emb_lieux'
-            , 'salle_emb_siege'
-            , 'salle_emb_facade_v'
-            , 'passerelle_sol'
-            , 'passerelle_vitre'
-            , 'passerelle_bus'
-            , 'bagage_lieux'
-            , 'bagage_tapis'
-            , 'bagage_chariot'
-            , 'salle_priere'
-            , 'poubelle')
-            ->where('status', '=', 'arrivee')->where('terminal', '=', 'Terminal Ouest')
-            // ->where('created_at', '<', Carbon::now()->subMinutes(5)->toDateTimeString())
-            ->get();
+        $thisMonth = [
+            $nonSatisfaisantCountThis,
+            $moyennementSatisfaisantCountThis,
+            $satisfaisantCountThis,
+            // Add more counts for other satisfaction levels as needed
+        ];
 
-        // -> groupBy('terminal');
+        $countLastMounth = [];
+        foreach ($columns as $columnName => $displayName) {
+            $result = Surveys::select([
+                $columnName,
+                DB::raw("COUNT($columnName) as satisfaction"),
+            ])
+                ->where('status', '=', 'arrivee')
+                ->where('terminal', '=', 'Terminal Ouest')
+                ->whereBetween('created_at', [
+                    Carbon::now()->subMonths(2)->startOfMonth(),
+                    Carbon::now()->subMonth(1)->endOfMonth(),
+                ])
+                ->groupBy($columnName)
+                ->get();
 
-//        dd($report);
-//        dd(len$report);
+            $result->each(function ($item) use (&$countLastMounth, $displayName, $columnName) {
+                $countLastMounth[$displayName][$item->$columnName] = [
+                    'count' => $item->satisfaction
+                ];
+            });
+        }
+        $nonSatisfaisantCountLast = 0;
+        $moyennementSatisfaisantCountLast = 0;
+        $satisfaisantCountLast = 0;
+
+        foreach ($countLastMounth as $displayName => $satisfactionLevels) {
+            foreach ($satisfactionLevels as $satisfactionLevel => $satisfactionData) {
+                switch ($satisfactionLevel) {
+                    case 'Non Satisfaisant':
+                        $nonSatisfaisantCountLast += $satisfactionData['count'];
+                        break;
+                    case 'Moyennement Satisfaisant':
+                        $moyennementSatisfaisantCountLast += $satisfactionData['count'];
+                        break;
+                    case 'Satisfaisant':
+                        $satisfaisantCountLast += $satisfactionData['count'];
+                        break;
+                    // Add more cases for other satisfaction levels as needed
+                }
+            }
+        }
+        $lastMonth = [
+            $nonSatisfaisantCountLast,
+            $moyennementSatisfaisantCountLast,
+            $satisfaisantCountLast,
+            // Add more counts for other satisfaction levels as needed
+        ];
+
+//        dd($countLastMounth);
+//        dd($nonSatisfaisantCountLast, $moyennementSatisfaisantCountLast, $satisfaisantCountLast);
+//        dd($nonSatisfaisantCountThis,$moyennementSatisfaisantCountThis,$satisfaisantCountThis);
+
+//        dd($criterias);
 
         // return view('pages.touest.arivee', ['parking_stationnement'=> $parking_stationnement, 'data'=> $data]);
-        return view('pages.touest.arivee', compact('report'));
+        return view('pages.touest.arivee', compact('report', 'criterias', 'thisMonth', 'lastMonth'));
     }
 
     public function todepart()

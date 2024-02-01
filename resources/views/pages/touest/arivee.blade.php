@@ -30,6 +30,8 @@
                 </div>
                 <!-- end page title -->
 
+                @include('pages.charts')
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
