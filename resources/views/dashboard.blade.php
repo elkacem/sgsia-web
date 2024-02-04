@@ -2,7 +2,7 @@
 
 @section('content')
 
-{{$report}}
+{{--{{$report}}--}}
 
 <div class="main-content">
 

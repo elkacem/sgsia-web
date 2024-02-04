@@ -84,18 +84,18 @@ class HomeController extends Controller
             'toilette_miroir'           => 'Propreté des miroirs',
             'toilette_urinoir'          => 'Propreté des urinoirs',
             'toilette_savon_l'          => 'Disponibilité du savon liquide',
-//            'toilette_papier_h'         => 'Disponibilité du papier hygiénique',
-//            'salle_emb_lieux'           => 'Propreté des lieux',
-//            'salle_emb_siege'           => 'Propreté des sièges',
-//            'salle_emb_facade_v'        => 'Propreté des façades vitrées',
+            'toilette_papier_h'         => 'Disponibilité du papier hygiénique',
+            'salle_emb_lieux'           => 'Propreté des lieux',
+            'salle_emb_siege'           => 'Propreté des sièges',
+            'salle_emb_facade_v'        => 'Propreté des façades vitrées',
 //            'passerelle_sol'            => '',
 //            'passerelle_vitre'          => '',
 //            'passerelle_bus'            => '',
-//            'bagage_lieux'              => 'Propreté des lieux',
-//            'bagage_tapis'              => 'Propreté des tapis à bagages',
-//            'bagage_chariot'            => 'Propreté des chariots à bagages',
-//            'salle_priere'              => 'Propreté des salles de prières',
-//            'poubelle'                  => 'Disponibilité des poubelles',
+            'bagage_lieux'              => 'Propreté des lieux',
+            'bagage_tapis'              => 'Propreté des tapis à bagages',
+            'bagage_chariot'            => 'Propreté des chariots à bagages',
+            'salle_priere'              => 'Propreté des salles de prières',
+            'poubelle'                  => 'Disponibilité des poubelles',
 ////            // Add more columns as needed
         ];
 
@@ -184,6 +184,7 @@ class HomeController extends Controller
                 ];
             });
         }
+
         $nonSatisfaisantCountThis = 0;
         $moyennementSatisfaisantCountThis = 0;
         $satisfaisantCountThis = 0;
@@ -212,6 +213,53 @@ class HomeController extends Controller
             // Add more counts for other satisfaction levels as needed
         ];
 
+        $monthPercents = [];
+        foreach ($countThisMounth as $element => $subArray) {
+            $sumFirstSecondCounts = 0;
+            $thirdCount = 0;
+
+            foreach ($subArray as $rating => $countArray) {
+                $count = $countArray['count'];
+
+                if ($rating == 'Satisfaisant' || $rating == 'Moyennement Satisfaisant') {
+                    $sumFirstSecondCounts += $count;
+                } elseif ($rating == 'Non Satisfaisant') {
+                    $thirdCount = $count;
+                }
+            }
+
+            $totalSum = $sumFirstSecondCounts + $thirdCount;
+
+            // Avoid division by zero
+//            $monthPercents[$element] = ($thirdCount != 0) ? ($sumFirstSecondCounts / $thirdCount) : 0;
+            $monthPercents[$element] = $sumFirstSecondCounts * 100 / $totalSum;
+        }
+
+        arsort($monthPercents);
+
+
+
+// Get the top 4 values from the sorted array
+        $topFour = array_slice($monthPercents, 0, 4, true);
+
+// Get the worst 4 values from the sorted array
+        $worstFour = array_slice($monthPercents, -4, null, true);
+
+// Combine the arrays if needed
+        $combinedArray = array_merge($topFour, $worstFour);
+
+        $criteriaOfPercent = [];
+        $percents = [];
+
+        foreach ($combinedArray as $element => $value) {
+            $criteriaOfPercent[] = $element;
+            $percents[] = $value;
+        }
+
+//        dd($monthPercents);
+//        dd($criterias);
+
+
         $countLastMounth = [];
         foreach ($columns as $columnName => $displayName) {
             $result = Surveys::select([
@@ -220,10 +268,15 @@ class HomeController extends Controller
             ])
                 ->where('status', '=', 'arrivee')
                 ->where('terminal', '=', 'Terminal Ouest')
+//                ->whereBetween('created_at', [
+//                    Carbon::now()->subMonths(2)->startOfMonth(),
+//                    Carbon::now()->subMonth(1)->endOfMonth(),
+//                ])
                 ->whereBetween('created_at', [
                     Carbon::now()->subMonths(2)->startOfMonth(),
                     Carbon::now()->subMonth(1)->endOfMonth(),
                 ])
+
                 ->groupBy($columnName)
                 ->get();
 
@@ -273,10 +326,7 @@ class HomeController extends Controller
             ])
                 ->where('status', '=', 'arrivee')
                 ->where('terminal', '=', 'Terminal Ouest')
-                ->whereBetween('created_at', [
-                    Carbon::now()->subMonths(2)->startOfMonth(),
-                    Carbon::now()->subMonth(1)->endOfMonth(),
-                ])
+                ->where('created_at', '>', Carbon::now()->subMonth(1)->toDateTimeString())
                 ->groupBy($columnName)
                 ->get();
 
@@ -298,7 +348,7 @@ class HomeController extends Controller
 //        dd($criterias);
 
         // return view('pages.touest.arivee', ['parking_stationnement'=> $parking_stationnement, 'data'=> $data]);
-        return view('pages.touest.arivee', compact('report', 'criterias', 'thisMonth', 'lastMonth','satisfaisantCounts','moyennementSatisfaisantCounts','nonSatisfaisantCounts'));
+        return view('pages.touest.arivee', compact('report', 'criterias', 'thisMonth', 'lastMonth','satisfaisantCounts','moyennementSatisfaisantCounts','nonSatisfaisantCounts', 'criteriaOfPercent', 'percents'));
     }
 
     public function todepart()

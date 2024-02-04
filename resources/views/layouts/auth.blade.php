@@ -995,71 +995,124 @@
                 }]
             });
 
-// New Bar Chart
-            const labelsBarChart = {!! json_encode($criterias) !!};
-            const dataBarChart = {
-                labels: labelsBarChart,
+{{--// New Bar Chart--}}
+{{--            const labelsBarChart = {!! json_encode($criterias) !!};--}}
+{{--            const dataBarChart = {--}}
+{{--                labels: labelsBarChart,--}}
+{{--                datasets: [--}}
+{{--                    {--}}
+{{--                        label: 'safits 1',--}}
+{{--                        data: {!! json_encode($satisfaisantCounts) !!},--}}
+{{--                        backgroundColor: "rgba(28, 187, 140, 0.8)",--}}
+{{--                        borderColor: "rgba(28, 187, 140, 0.8)",--}}
+{{--                    },--}}
+{{--                    {--}}
+{{--                        label: 'm satis 2',--}}
+{{--                        data: {!! json_encode($moyennementSatisfaisantCounts) !!},--}}
+{{--                        backgroundColor: "rgba(84, 56, 220, 0.2)",--}}
+{{--                        borderColor: "#0f9cf3",--}}
+{{--                    },--}}
+{{--                    {--}}
+{{--                        label: 'non satis 3', // Added Dataset 3--}}
+{{--                        data: {!! json_encode($nonSatisfaisantCounts) !!},--}}
+{{--                        backgroundColor: "rgba(255, 99, 132, 0.8)",--}}
+{{--                        borderColor: "rgba(255, 99, 132, 0.8)",--}}
+{{--                    }--}}
+{{--                ]--}}
+{{--            };--}}
+
+{{--            let delayedBarChart;--}}
+{{--            const configBarChart = {--}}
+{{--                type: 'bar',--}}
+{{--                data: dataBarChart,--}}
+{{--                options: {--}}
+{{--                    animation: {--}}
+{{--                        onComplete: () => {--}}
+{{--                            delayedBarChart = true;--}}
+{{--                        },--}}
+{{--                        delay: (context) => {--}}
+{{--                            let delay = 0;--}}
+{{--                            if (context.type === 'data' && context.mode === 'default' && !delayedBarChart) {--}}
+{{--                                delay = context.dataIndex * 300 + context.datasetIndex * 100;--}}
+{{--                            }--}}
+{{--                            return delay;--}}
+{{--                        },--}}
+{{--                    },--}}
+{{--                    scales: {--}}
+{{--                        x: {--}}
+{{--                            stacked: true,--}}
+{{--                        },--}}
+{{--                        y: {--}}
+{{--                            stacked: true--}}
+{{--                        }--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            };--}}
+
+{{--            this.respChart(l("#barChartNew"), "Bar", dataBarChart, configBarChart);--}}
+
+
+            // Add the new custom Line chart
+            const lineChardata = {
+                labels: {!! json_encode($criterias) !!},
                 datasets: [
-                    {
-                        label: 'safits 1',
-                        data: {!! json_encode($satisfaisantCounts) !!},
-                        backgroundColor: "rgba(28, 187, 140, 0.8)",
-                        borderColor: "rgba(28, 187, 140, 0.8)",
-                    },
-                    {
-                        label: 'm satis 2',
-                        data: {!! json_encode($moyennementSatisfaisantCounts) !!},
-                        backgroundColor: "rgba(84, 56, 220, 0.2)",
-                        borderColor: "#0f9cf3",
-                    },
-                    {
-                        label: 'non satis 3', // Added Dataset 3
-                        data: {!! json_encode($nonSatisfaisantCounts) !!},
-                        backgroundColor: "rgba(255, 99, 132, 0.8)",
-                        borderColor: "rgba(255, 99, 132, 0.8)",
-                    }
-                ]
-            };
-
-            let delayedBarChart;
-            const configBarChart = {
-                type: 'bar',
-                data: dataBarChart,
-                options: {
-                    animation: {
-                        onComplete: () => {
-                            delayedBarChart = true;
-                        },
-                        delay: (context) => {
-                            let delay = 0;
-                            if (context.type === 'data' && context.mode === 'default' && !delayedBarChart) {
-                                delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                            {
+                                label: 'Satisfaisant',
+                                data: {!! json_encode($satisfaisantCounts) !!},
+                                backgroundColor: "rgba(28, 187, 140, 0.8)",
+                                borderColor: "rgba(28, 187, 140, 0.8)",
+                            },
+                            {
+                                label: 'Moyennement Satisfaisant',
+                                data: {!! json_encode($moyennementSatisfaisantCounts) !!},
+                                backgroundColor: "rgba(84, 56, 220, 0.2)",
+                                borderColor: "#0f9cf3",
+                            },
+                            {
+                                label: 'Non Satisfaisant', // Added Dataset 3
+                                data: {!! json_encode($nonSatisfaisantCounts) !!},
+                                backgroundColor: "rgba(255, 99, 132, 0.8)",
+                                borderColor: "rgba(255, 99, 132, 0.8)",
                             }
-                            return delay;
-                        },
-                    },
-                    scales: {
-                        x: {
-                            stacked: true,
-                        },
-                        y: {
-                            stacked: true
-                        }
-                    }
-                }
+                        ]
+
             };
 
-            this.respChart(l("#barChartNew"), "Bar", dataBarChart, configBarChart);
+            this.respChart(l("#barChartNew"), "Bar", lineChardata, {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Suggested Min and Max Settings'
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        suggestedMin: 0,
+                        suggestedMax: 50,
+                    }]
+                }
+            });
 
-        // this.respChart(l("#polarArea"), "PolarArea", {
-            //     datasets: [{
-            //         data: [11, 16, 7, 18],
-            //         backgroundColor: ["#fcb92c", "#1cbb8c", "#f32f53", "#0f9cf3"],
-            //         label: "My dataset",
-            //         hoverBorderColor: "#fff"
-            //     }],
-            //     labels: ["Series 1", "Series 2", "Series 3", "Series 4"]
-            // })
+        {{--this.respChart(l("#polarArea"), "PolarArea", {--}}
+        {{--        datasets: [{--}}
+        {{--            data: {!! json_encode($monthPercents) !!},--}}
+        {{--            backgroundColor: ["#fcb92c", "#1cbb8c", "#f32f53", "#0f9cf3"],--}}
+        {{--            label: "My dataset",--}}
+        {{--            hoverBorderColor: "#fff"--}}
+        {{--        }],--}}
+        {{--        labels: {!! json_encode($criterias) !!}--}}
+        {{--    })--}}
+
+            this.respChart(l("#polarArea"), "PolarArea", {
+            datasets: [{
+                data: {!! json_encode($percents) !!},
+                backgroundColor: ["#186A3B", "#28B463", "#58D68D", "#D5F5E3","#F5B7B1", "#F1948A", "#E74C3C", "#78281F"],
+                label: "My dataset",
+                hoverBorderColor: "#fff"
+            }],
+            labels: {!! json_encode($criteriaOfPercent) !!}
+        })
         }, l.ChartJs = new r, l.ChartJs.Constructor = r
     }(window.jQuery),
         function() {
