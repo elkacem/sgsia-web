@@ -2,6 +2,7 @@
 
 use App\Models\Surveydepart;
 use App\Models\Surveys;
+use App\Models\PassagerArrive;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -59,7 +60,7 @@ Route::post('/surveys', function (Request $request) {
         'salle_priere' => 'required',
         'poubelle' => 'required',
 
-        'suggestion' => 'required'
+        'suggestion' => 'nullable',
     ]);
 
     return Surveys::create([
@@ -124,7 +125,7 @@ Route::post('/surveydepart', function (Request $request) {
         'signalisation_chariot' => 'required',
         'signalisation_hall' => 'required',
 
-        'suggestion' => 'required'
+        'suggestion' => 'nullable',
     ]);
 
 
@@ -169,24 +170,24 @@ Route::post('/surveyarrive', function (Request $request) {
         'sign_parking' => 'required',
         'sign_chariot' => 'required',
         'sign_hall' => 'required',
-        'suggestion' => 'required',
+        'suggestion' => 'nullable',
     ]);
 
 
-    return Surveydepart::create([
+    return PassagerArrive::create([
         'user_id' => $request->agent,
 
         'terminal' => $request->terminal,
         'company' => $request->company,
 
-        'hall_qlt_aff' => $request->chariot_disp,
-        'bagage_temp_att' => $request->chariot_qualite,
-        'chariot_disp' => $request->hall_confort,
-        'chariot_qlt' => $request->hall_qualite,
-        'confort_climatique' => $request->hall_sonore,
-        'sign_parking' => $request->info_orie_agents,
-        'sign_chariot' => $request->info_orie_qualite,
-        'sign_hall' => $request->zone_confort_s,
+        'hall_qlt_aff' => $request->hall_qlt_aff,
+        'bagage_temp_att' => $request->bagage_temp_att,
+        'chariot_disp' => $request->chariot_disp,
+        'chariot_qlt' => $request->chariot_qlt,
+        'confort_climatique' => $request->confort_climatique,
+        'sign_parking' => $request->sign_parking,
+        'sign_chariot' => $request->sign_chariot,
+        'sign_hall' => $request->sign_hall,
 
         'suggestion' => $request->suggestion,
     ]);

@@ -38,7 +38,7 @@ return new class extends Migration
                                     'tunisair',
                                     'volotea',
                                     'vueling']);
-            
+
             $table->enum('chariot_disp'          ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
             $table->enum('chariot_qualite'       ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
             $table->enum('hall_confort'          ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
@@ -54,9 +54,9 @@ return new class extends Migration
             $table->enum('signalisation_parking'    ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
             $table->enum('signalisation_chariot'     ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
             $table->enum('signalisation_hall'      ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
-            
-            
-            $table->text('suggestion');
+
+
+            $table->text('suggestion')->nullable();;
 
             $table->timestamps();
         });

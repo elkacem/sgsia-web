@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->enum('status',['depart', 'arrivee']);
             $table->enum('terminal',['Terminal Ouest', 'Terminal 1', 'Terminal 2']);
-            
+
             $table->enum('parking_stationnement',['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
             $table->enum('parking_espace_v'     ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
             $table->enum('parking_ap_t'         ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
@@ -49,9 +49,9 @@ return new class extends Migration
             $table->enum('bagage_chariot'       ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
             $table->enum('salle_priere'         ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
             $table->enum('poubelle'             ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
-            
-            $table->text('suggestion');
-            
+
+            $table->text('suggestion')->nullable();;
+
             $table->timestamps();
         });
     }
