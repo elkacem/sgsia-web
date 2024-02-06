@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\PassagerArrive;
 use App\Models\Surveys;
 use App\Models\Surveydepart;
 use App\Models\User;
@@ -26,7 +27,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'belo',
             'email' => 'belo@mail.com',
         ]);
-        Surveys::factory(1000)->create();
+        Surveys::factory(100)->create();
         Surveydepart::factory(40)->create();
+        PassagerArrive::factory(40)->create();
     }
 }

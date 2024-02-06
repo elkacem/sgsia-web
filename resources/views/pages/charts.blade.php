@@ -6,18 +6,18 @@
                 <h4 class="card-title mb-4">Statistique des satisfactions ce mois</h4>
 
                 <div class="row text-center">
-                    <div class="col-4">
-                        <h5 class="mb-0">86541</h5>
-                        <p class="text-muted text-truncate">test</p>
+                    <div class="col-6">
+                        <h5 class="mb-0">{{ number_format(array_sum($monthPercents) / count($monthPercents), 2) }} %</h5>
+                        <p class="text-muted text-truncate">Satisfaction</p>
                     </div>
-                    <div class="col-4">
-                        <h5 class="mb-0">2541</h5>
-                        <p class="text-muted text-truncate">test</p>
+                    <div class="col-6">
+                        <h5 class="mb-0">{{100 - number_format(array_sum($monthPercents) / count($monthPercents), 2) }} %</h5>
+                        <p class="text-muted text-truncate">Non Satisfaction</p>
                     </div>
-                    <div class="col-4">
-                        <h5 class="mb-0">102030</h5>
-                        <p class="text-muted text-truncate">test</p>
-                    </div>
+{{--                    <div class="col-4">--}}
+{{--                        <h5 class="mb-0">102030</h5>--}}
+{{--                        <p class="text-muted text-truncate">test</p>--}}
+{{--                    </div>--}}
                 </div>
 
                 <canvas id="barChartNew" height="300"></canvas>

@@ -232,7 +232,7 @@ class HomeController extends Controller
 
             // Avoid division by zero
 //            $monthPercents[$element] = ($thirdCount != 0) ? ($sumFirstSecondCounts / $thirdCount) : 0;
-            $monthPercents[$element] = $sumFirstSecondCounts * 100 / $totalSum;
+            $monthPercents[$element] = number_format($sumFirstSecondCounts * 100 / $totalSum, 2);
         }
 
         arsort($monthPercents);
@@ -345,10 +345,10 @@ class HomeController extends Controller
 //        dd($satisfaisantCounts, $moyennementSatisfaisantCounts, $nonSatisfaisantCounts);
 //        dd($nonSatisfaisantCountThis,$moyennementSatisfaisantCountThis,$satisfaisantCountThis);
 
-//        dd($criterias);
+//        dd($monthPercents);
 
         // return view('pages.touest.arivee', ['parking_stationnement'=> $parking_stationnement, 'data'=> $data]);
-        return view('pages.touest.arivee', compact('report', 'criterias', 'thisMonth', 'lastMonth','satisfaisantCounts','moyennementSatisfaisantCounts','nonSatisfaisantCounts', 'criteriaOfPercent', 'percents'));
+        return view('pages.touest.arivee', compact('report', 'criterias', 'thisMonth', 'lastMonth','satisfaisantCounts','moyennementSatisfaisantCounts','nonSatisfaisantCounts', 'monthPercents', 'criteriaOfPercent', 'percents'));
     }
 
     public function todepart()

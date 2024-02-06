@@ -12,16 +12,18 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasApiTokens;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+//    /**
+//     * The attributes that are mass assignable.
+//     *
+//     * @var array<int, string>
+//     */
+//    protected $fillable = [
+//        'name',
+//        'email',
+//        'password',
+//    ];
+
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,13 +45,21 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function surveys(){
+    public function surveys()
+    {
         return $this->hasMany(Surveys::class);
 
     }
 
-    public function surveydepart(){
+    public function surveydepart()
+    {
         return $this->hasMany(Surveydepart::class);
+
+    }
+
+    public function passagerarrive()
+    {
+        return $this->hasMany(PassagerArrive::class);
 
     }
 }
