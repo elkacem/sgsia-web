@@ -44,10 +44,10 @@ return new class extends Migration
             $table->enum('passerelle_vitre'     ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant'])->nullable();
             $table->enum('passerelle_bus'       ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant'])->nullable();
 
-            $table->enum('bagage_lieux'         ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
-            $table->enum('bagage_tapis'         ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
-            $table->enum('bagage_chariot'       ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
-            $table->enum('salle_priere'         ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
+            $table->enum('bagage_lieux'         ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant'])->nullable();
+            $table->enum('bagage_tapis'         ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant'])->nullable();
+            $table->enum('bagage_chariot'       ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant'])->nullable();
+            $table->enum('salle_priere'         ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant'])->nullable();
             $table->enum('poubelle'             ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
 
             $table->text('suggestion')->nullable();;

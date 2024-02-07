@@ -54,17 +54,18 @@ Route::post('/surveys', function (Request $request) {
         'passerelle_vitre' => 'required_if:status,arrivee',
         'passerelle_bus' => 'required_if:status,arrivee',
 
-        'bagage_lieux' => 'required',
-        'bagage_tapis' => 'required',
-        'bagage_chariot' => 'required',
-        'salle_priere' => 'required',
+        'bagage_lieux' => 'required_if:status,arrivee',
+        'bagage_tapis' => 'required_if:status,arrivee',
+        'bagage_chariot' => 'required_if:status,arrivee',
+
+        'salle_priere' => 'required_if:status,depart',
         'poubelle' => 'required',
 
         'suggestion' => 'nullable',
     ]);
 
     return Surveys::create([
-        'user_id' => auth()->user()->getAuthIdentifier(),
+        'user_id' => $request->agent,
         'status' => $request->status,
         'terminal' => $request->terminal,
         'parking_stationnement' => $request->parking_stationnement,
