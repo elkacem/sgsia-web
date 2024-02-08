@@ -1,40 +1,10 @@
 @php
-    function eecart_type($donnees) {
-    // 0 - Nombre d’éléments dans le tableau
-    $population = count($donnees);
-
-    if ($population != 0) {
-        // 1 - somme du tableau
-        $somme_tableau = array_sum($donnees);
-        // 2 - Calcul de la moyenne
-        $moyenne = $somme_tableau / $population;
-        // 3 - écart pour chaque valeur
-        $ecart = [];
-
-        for ($i = 0; $i < $population; $i++) {
-            // écart entre la valeur et la moyenne
-            $ecart_donnee = $donnees[$i] - $moyenne;
-            // carré de l'écart
-            $ecart_donnee_carre = bcpow($ecart_donnee, 2, 2);
-            // Insertion dans le tableau
-            array_push($ecart, $ecart_donnee_carre);
-        }
-
-        // 4 - somme des écarts
-        $somme_ecart = array_sum($ecart);
-        // 5 - division de la somme des écarts par la population
-        $division = $somme_ecart / $population;
-        // 6 - racine carrée de la division
-        $ecart_type = bcsqrt($division, 2);
-    } else {
-        $ecart_type = "Le tableau est vide";
-    }
-
-    // 7 - renvoi du résultat
-    return $ecart_type;
-}
-
+    include_once base_path('Helpers/ecart_type_function.php');
 @endphp
+
+
+
+
 
 <div class="row">
     <div class="col-lg-12">
@@ -161,7 +131,7 @@
 
                 <div class="row text-center">
                     <div class="col-4">
-                        <h5 class="mb-0">{{ number_format(count($monthPercents) > 0 ? eecart_type($monthPercents) : 0, 2) }}</h5>
+                        <h5 class="mb-0">{{ number_format(count($monthPercents) > 0 ? ecart_type_function($monthPercents) : 0, 2) }}</h5>
                         <p class="text-muted text-truncate">test</p>
                     </div>
                     <div class="col-4">
