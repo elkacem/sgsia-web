@@ -53,7 +53,7 @@ class SurveysFactory extends Factory
             'poubelle'              => $this-> faker-> randomElement(['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']),
 
             'suggestion' => $this-> faker-> sentence(20),
-            'created_at' => $this-> faker-> dateTimeBetween('-12 months', now())
+            'created_at' => $this-> faker-> dateTimeBetween('-1 months', now())
         ];
     }
 }

@@ -2,6 +2,6 @@
 
 @section('content')
 
-terminal one depart
+terminal ouest depart 
 
 @endsection

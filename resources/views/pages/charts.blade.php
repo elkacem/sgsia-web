@@ -1,3 +1,41 @@
+@php
+    function eecart_type($donnees) {
+    // 0 - Nombre d’éléments dans le tableau
+    $population = count($donnees);
+
+    if ($population != 0) {
+        // 1 - somme du tableau
+        $somme_tableau = array_sum($donnees);
+        // 2 - Calcul de la moyenne
+        $moyenne = $somme_tableau / $population;
+        // 3 - écart pour chaque valeur
+        $ecart = [];
+
+        for ($i = 0; $i < $population; $i++) {
+            // écart entre la valeur et la moyenne
+            $ecart_donnee = $donnees[$i] - $moyenne;
+            // carré de l'écart
+            $ecart_donnee_carre = bcpow($ecart_donnee, 2, 2);
+            // Insertion dans le tableau
+            array_push($ecart, $ecart_donnee_carre);
+        }
+
+        // 4 - somme des écarts
+        $somme_ecart = array_sum($ecart);
+        // 5 - division de la somme des écarts par la population
+        $division = $somme_ecart / $population;
+        // 6 - racine carrée de la division
+        $ecart_type = bcsqrt($division, 2);
+    } else {
+        $ecart_type = "Le tableau est vide";
+    }
+
+    // 7 - renvoi du résultat
+    return $ecart_type;
+}
+
+@endphp
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -7,17 +45,19 @@
 
                 <div class="row text-center">
                     <div class="col-6">
-                        <h5 class="mb-0">{{ number_format(array_sum($monthPercents) / count($monthPercents), 2) }} %</h5>
+                        <h5 class="mb-0">{{ number_format(count($monthPercents) > 0 ? array_sum($monthPercents) / count($monthPercents) : 0, 2) }}
+                            %</h5>
                         <p class="text-muted text-truncate">Satisfaction</p>
                     </div>
                     <div class="col-6">
-                        <h5 class="mb-0">{{100 - number_format(array_sum($monthPercents) / count($monthPercents), 2) }} %</h5>
+                        <h5 class="mb-0">{{100 - number_format(count($monthPercents) > 0 ? array_sum($monthPercents) / count($monthPercents) : 0, 2) }}
+                            %</h5>
                         <p class="text-muted text-truncate">Non Satisfaction</p>
                     </div>
-{{--                    <div class="col-4">--}}
-{{--                        <h5 class="mb-0">102030</h5>--}}
-{{--                        <p class="text-muted text-truncate">test</p>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="col-4">--}}
+                    {{--                        <h5 class="mb-0">102030</h5>--}}
+                    {{--                        <p class="text-muted text-truncate">test</p>--}}
+                    {{--                    </div>--}}
                 </div>
 
                 <canvas id="barChartNew" height="300"></canvas>
@@ -26,32 +66,32 @@
         </div>
     </div> <!-- end col -->
 
-{{--    <div class="col-lg-6">--}}
-{{--        <div class="card">--}}
-{{--            <div class="card-body">--}}
+    {{--    <div class="col-lg-6">--}}
+    {{--        <div class="card">--}}
+    {{--            <div class="card-body">--}}
 
-{{--                <h4 class="card-title mb-4">Bar Chart</h4>--}}
+    {{--                <h4 class="card-title mb-4">Bar Chart</h4>--}}
 
-{{--                <div class="row text-center">--}}
-{{--                    <div class="col-4">--}}
-{{--                        <h5 class="mb-0">2541</h5>--}}
-{{--                        <p class="text-muted text-truncate">Activated</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-4">--}}
-{{--                        <h5 class="mb-0">84845</h5>--}}
-{{--                        <p class="text-muted text-truncate">Pending</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-4">--}}
-{{--                        <h5 class="mb-0">12001</h5>--}}
-{{--                        <p class="text-muted text-truncate">Deactivated</p>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+    {{--                <div class="row text-center">--}}
+    {{--                    <div class="col-4">--}}
+    {{--                        <h5 class="mb-0">2541</h5>--}}
+    {{--                        <p class="text-muted text-truncate">Activated</p>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="col-4">--}}
+    {{--                        <h5 class="mb-0">84845</h5>--}}
+    {{--                        <p class="text-muted text-truncate">Pending</p>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="col-4">--}}
+    {{--                        <h5 class="mb-0">12001</h5>--}}
+    {{--                        <p class="text-muted text-truncate">Deactivated</p>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
 
-{{--                <canvas id="bar" height="300"></canvas>--}}
+    {{--                <canvas id="bar" height="300"></canvas>--}}
 
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div> <!-- end col -->--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div> <!-- end col -->--}}
 </div> <!-- end row -->
 
 
@@ -121,7 +161,7 @@
 
                 <div class="row text-center">
                     <div class="col-4">
-                        <h5 class="mb-0">4852</h5>
+                        <h5 class="mb-0">{{ number_format(count($monthPercents) > 0 ? eecart_type($monthPercents) : 0, 2) }}</h5>
                         <p class="text-muted text-truncate">test</p>
                     </div>
                     <div class="col-4">
@@ -146,15 +186,18 @@
                 <h4 class="card-title mb-4">Satisfaction par rapport au mois précédent</h4>
                 <div class="row text-center">
                     <div class="col-4">
-                        <h5 class="mb-0">{{ number_format(($thisMonth[2] * 100) / array_sum($thisMonth) - ($lastMonth[2] * 100) / array_sum($lastMonth), 2) }} %</h5>
+                        <h5 class="mb-0">{{ number_format(((count($thisMonth) > 0 && array_sum($thisMonth) > 0 ? ($thisMonth[2] * 100) / array_sum($thisMonth) : 0) - (count($lastMonth) > 0 && array_sum($lastMonth) > 0 ? ($lastMonth[2] * 100) / array_sum($lastMonth) : 0)), 2) }}
+                            %</h5>
                         <p class="text-muted text-truncate">Satisfaisant</p>
                     </div>
                     <div class="col-4">
-                        <h5 class="mb-0">{{ number_format(($thisMonth[1] * 100) / array_sum($thisMonth) - ($lastMonth[1] * 100) / array_sum($lastMonth), 2) }} %</h5>
+                        <h5 class="mb-0">{{ number_format(((count($thisMonth) > 0 && array_sum($thisMonth) > 0 ? ($thisMonth[1] * 100) / array_sum($thisMonth) : 0) - (count($lastMonth) > 0 && array_sum($lastMonth) > 0 ? ($lastMonth[1] * 100) / array_sum($lastMonth) : 0)), 2) }}
+                            %</h5>
                         <p class="text-muted text-truncate">Moyennement Satisfaisant</p>
                     </div>
                     <div class="col-4">
-                        <h5 class="mb-0">{{ number_format(($thisMonth[0] * 100) / array_sum($thisMonth) - ($lastMonth[0] * 100) / array_sum($lastMonth), 2) }} %</h5>
+                        <h5 class="mb-0">{{ number_format(((count($thisMonth) > 0 && array_sum($thisMonth) > 0 ? ($thisMonth[0] * 100) / array_sum($thisMonth) : 0) - (count($lastMonth) > 0 && array_sum($lastMonth) > 0 ? ($lastMonth[0] * 100) / array_sum($lastMonth) : 0)), 2) }}
+                            %</h5>
                         <p class="text-muted text-truncate">Non Satisfaisant</p>
                     </div>
                 </div>
@@ -164,6 +207,9 @@
         </div>
     </div> <!-- end col -->
 </div> <!-- end row -->
+
+
+
 
 
 

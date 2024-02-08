@@ -22,12 +22,16 @@ Route::group(['middleware' => 'auth'] , function() {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'] )-> name('home');
 
-    Route::get('/touesta', [App\Http\Controllers\HomeController::class, 'toarrive'] )-> name('toarrive');
-    Route::get('/touestd', [App\Http\Controllers\HomeController::class, 'todepart'] )-> name('todepart');
+    Route::get('/touestpa', [App\Http\Controllers\HomeController::class, 'touestpa'] )-> name('touest-pa');
+    Route::get('/touestpd', [App\Http\Controllers\HomeController::class, 'touestpd'] )-> name('touest-pd');
+    Route::get('/touestsa', [App\Http\Controllers\HomeController::class, 'touestsa'] )-> name('touest-sa');
+    Route::get('/touestdsd', [App\Http\Controllers\HomeController::class, 'touestdsd'] )-> name('touest-sd');
 
-    Route::get('/tonea', [App\Http\Controllers\HomeController::class, 'tonearrive'] )-> name('tonearrive');
-    Route::get('/toned', [App\Http\Controllers\HomeController::class, 'tonedepart'] )-> name('tonedepart');
-    
+    Route::get('/tonepa', [App\Http\Controllers\HomeController::class, 'tonearrive'] )-> name('tone-pa');
+    Route::get('/tonepd', [App\Http\Controllers\HomeController::class, 'tonedepart'] )-> name('tone-pd');
+    Route::get('/tonesa', [App\Http\Controllers\HomeController::class, 'tonearrive'] )-> name('tone-sa');
+    Route::get('/tonesd', [App\Http\Controllers\HomeController::class, 'tonedepart'] )-> name('tone-sd');
+
 
     // Route::get('/linkstorage', function () {
     //     Artisan::call('storage:link');
@@ -48,7 +52,7 @@ Route::group(['middleware' => 'auth'] , function() {
     //     // return view('dashboard')->with($data);
     //     return view('layouts.auth');
     // });
-    
+
     // Route::get('/sales', function() {
     //     // $category_name = '';
     //     $data = [
@@ -1230,7 +1234,7 @@ Route::group(['middleware' => 'auth'] , function() {
             ];
             // $pageName = 'breadcrumb';
             return view('pages.starter-kit.starter_kit_breadcrumbs')->with($data);
-        });        
+        });
     });
 
 
@@ -1449,12 +1453,12 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 
 Route::get('/register', function() {
-    return redirect('/login');    
+    return redirect('/login');
 });
 Route::get('/password/reset', function() {
-    return redirect('/login');    
+    return redirect('/login');
 });
 
 Route::get('/', function() {
-    return redirect('/home');    
+    return redirect('/home');
 });
