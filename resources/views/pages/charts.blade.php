@@ -1,11 +1,6 @@
-@php
-    include_once base_path('Helpers/ecart_type_function.php');
-@endphp
-
-
-
-
-
+{{--@php--}}
+{{--    include_once base_path('Helpers/ecart_type_function.php');--}}
+{{--@endphp--}}
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -131,7 +126,7 @@
 
                 <div class="row text-center">
                     <div class="col-4">
-                        <h5 class="mb-0">{{ number_format(count($monthPercents) > 0 ? ecart_type_function($monthPercents) : 0, 2) }}</h5>
+{{--                        <h5 class="mb-0">{{ number_format(count($monthPercents) > 0 ? ecart_type_function($monthPercents) : 0, 2) }}</h5>--}}
                         <p class="text-muted text-truncate">test</p>
                     </div>
                     <div class="col-4">
