@@ -501,16 +501,16 @@
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow">Propreté</a>
                                 <ul class="sub-menu" aria-expanded="true">
-                                    <li><a href="{{ route('touest-pa') }}">Arrive</a></li>
-                                    <li><a href="{{ route('touest-pd') }}">Depart</a></li>
+                                    <li><a href="{{ route('touestpropertea') }}">Arrive</a></li>
+                                    <li><a href="{{ route('touestproperted') }}">Depart</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow">Satisfaction</a>
                                 <ul class="sub-menu" aria-expanded="true">
-                                    <li><a href="{{ route('touest-sa') }}">Arrive</a></li>
-                                    <li><a href="{{ route('touest-sd') }}">Depart</a></li>
+                                    <li><a href="{{ route('touestpassengera') }}">Arrive</a></li>
+                                    <li><a href="{{ route('touestpassengerd') }}">Depart</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -525,16 +525,16 @@
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow">Propreté</a>
                                 <ul class="sub-menu" aria-expanded="true">
-                                    <li><a href="{{ route('tone-pa') }}">Arrive</a></li>
-                                    <li><a href="{{ route('tone-pd') }}">Depart</a></li>
+                                    <li><a href="{{ route('tonepropertea') }}">Arrive</a></li>
+                                    <li><a href="{{ route('toneproperted') }}">Depart</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow">Satisfaction</a>
                                 <ul class="sub-menu" aria-expanded="true">
-                                    <li><a href="{{ route('tone-sa') }}">Arrive</a></li>
-                                    <li><a href="{{ route('tone-sd') }}">Depart</a></li>
+                                    <li><a href="{{ route('tonepassengera') }}">Arrive</a></li>
+                                    <li><a href="{{ route('tonepassengerd') }}">Depart</a></li>
                                 </ul>
                             </li>
                         </ul>
