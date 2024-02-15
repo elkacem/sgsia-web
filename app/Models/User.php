@@ -17,11 +17,13 @@ class User extends Authenticatable
 //     *
 //     * @var array<int, string>
 //     */
-//    protected $fillable = [
-//        'name',
-//        'email',
-//        'password',
-//    ];
+    protected $fillable = [
+        'name',
+        'email',
+        'username',
+        'password',
+        'is_admin',
+    ];
 
     protected $guarded = [];
 
@@ -44,6 +46,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    static function getSingle($id){
+        return self::find($id);
+    }
+
+    static function getUser(){
+        return self::select('id', 'name', 'username', 'email', 'is_admin', 'created_at')->orderBy('created_at', 'desc')->get();
+    }
 
     public function surveys()
     {

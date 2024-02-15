@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PassagerArrive;
+use App\Models\Surveydepart;
 use App\Models\Surveys;
 use Carbon\Carbon;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class HomeController extends Controller
 {
@@ -27,88 +30,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = Surveys::select('status'
-            , 'terminal'
-            , 'parking_stationnement'
-            , 'parking_espace_v'
-            , 'parking_ap_t'
-            , 'hall_public'
-            , 'hall_escalier'
-            , 'hall_escalator'
-            , 'hall_ascenceur'
-            , 'hall_facade_v'
-            , 'hall_chariot'
-            , 'hall_siege'
-            , 'toilette_sol'
-            , 'toilette_lavabo_r'
-            , 'toilette_cuvette'
-            , 'toilette_miroir'
-            , 'toilette_urinoir'
-            , 'toilette_savon_l'
-            , 'toilette_papier_h'
-            , 'salle_emb_lieux'
-            , 'salle_emb_siege'
-            , 'salle_emb_facade_v'
-            , 'passerelle_sol'
-            , 'passerelle_vitre'
-            , 'passerelle_bus'
-            , 'bagage_lieux'
-            , 'bagage_tapis'
-            , 'bagage_chariot'
-            , 'salle_priere'
-            , 'poubelle')->get()->groupBy('terminal');
-        return view('dashboard', ['data' => $data]);
-    }
-
-    private function ecart_type($donnees)
-    {
-        // 0 - Nombre d’éléments dans le tableau
-        $population = count($donnees);
-
-        if ($population != 0) {
-            // 1 - somme du tableau
-            $somme_tableau = array_sum($donnees);
-
-            // 2 - Calcul de la moyenne
-            $moyenne = $somme_tableau / $population;
-
-            // 3 - écart pour chaque valeur
-            $ecart = [];
-
-            foreach ($donnees as $rating) {
-                // écart entre la valeur et la moyenne
-                $ecart_donnee = floatval($rating) - $moyenne;
-
-                // carré de l'écart
-                $ecart_donnee_carre = $ecart_donnee ** 2;
-
-                // Insertion dans le tableau
-                array_push($ecart, $ecart_donnee_carre);
-            }
-
-            // 4 - somme des écarts
-            $somme_ecart = array_sum($ecart);
-
-            // 5 - division de la somme des écarts par la population
-            $division = $somme_ecart / $population;
-
-            // 6 - racine carrée de la division
-            $ecart_type = sqrt($division);
-        } else {
-            $ecart_type = 0;
-        }
-
-        // 7 - renvoi du résultat
-        return number_format($ecart_type, 2);
-    }
-
-
-    public function touestpa()
-    {
         $endDate = now(); // Current date
-        $startDate = now()->subMonth(1); // Date 12 months ago
+        $startDate = now()->subMonths(12); // Date 12 months ago
         $report = [];
-        $columns = [
+        $properteColumns = [
             'parking_stationnement' => 'Propreté des places de stationnement',
             'parking_espace_v' => 'Propreté des espaces verts',
             'parking_ap_t' => 'Propreté des accès piétons au terminal',
@@ -126,53 +51,60 @@ class HomeController extends Controller
             'toilette_urinoir'          => 'Propreté des urinoirs',
             'toilette_savon_l'          => 'Disponibilité du savon liquide',
             'toilette_papier_h'         => 'Disponibilité du papier hygiénique',
-//            'salle_emb_lieux'           => 'Propreté des lieux',
-//            'salle_emb_siege'           => 'Propreté des sièges',
-//            'salle_emb_facade_v'        => 'Propreté des façades vitrées',
+            'salle_emb_lieux'           => 'Propreté des lieux',
+            'salle_emb_siege'           => 'Propreté des sièges',
+            'salle_emb_facade_v'        => 'Propreté des façades vitrées',
             'passerelle_sol'            => 'Propreté du sol des passerelles	',
             'passerelle_vitre'          => 'Propreté des vitres des passerelles	',
             'passerelle_bus'            => 'Propreté des bus',
             'bagage_lieux'              => 'Propreté des lieux',
             'bagage_tapis'              => 'Propreté des tapis à bagages',
             'bagage_chariot'            => 'Propreté des chariots à bagages',
-//            'salle_priere'              => 'Propreté des salles de prières',
+            'salle_priere'              => 'Propreté des salles de prières',
             'poubelle'                  => 'Disponibilité des poubelles',
 ////            // Add more columns as needed
         ];
 
-        foreach ($columns as $columnName => $displayName) {
-            $result = Surveys::select([
-                $columnName,
-                DB::raw("COUNT($columnName) as satisfaction"),
-                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month")
-            ])
-                ->where('status', '=', 'arrivee')
-                ->where('terminal', '=', 'Terminal Ouest')
-                ->whereBetween('created_at', [$startDate, $endDate])
-                ->groupBy($columnName)
-                ->groupBy('month')
-                ->orderBy('month', 'asc')
-                ->get();
+        $satisfactionDepartColumns = [
+            'chariot_disp' => 'Disponibilité des chariots',
+            'chariot_qualite' => 'Qualité des chariots',
+            'hall_confort' => 'Confort des sièges',
+            'hall_qualite' => 'Qualité du téléaffichage',
+            'hall_sonore' => 'Clarté des messages sonores',
+            'info_orie_agents' => 'Disponibilité des agents orientation',
+            'info_orie_qualite' => 'Qualité de accueil et des réponses obtenues',
+            'zone_confort_s' => 'Confort des sièges',
+            'zone_qualite' => 'Qualité du téléaffichage',
+            'zone_sonore' => 'Clarté des messages sonores',
+            'confort_hall' => 'Dans le Hall Public',
+            'confort_zone' => 'En zone Embarquement',
+            'signalisation_parking' => 'Signalisation des parkings',
+            'signalisation_chariot' => 'Signalisation des emplacements des chariots',
+            'signalisation_hall' => 'Signalisation au niveau du Hall arrivée',
+        ];
 
-            $result->each(function ($item) use (&$report, $displayName, $columnName) {
-                $report[$displayName][$item->month][$item->$columnName] = [
-                    'count' => $item->satisfaction
-                ];
-            });
-        }
-        $criterias = [];
-        foreach ($report as $criteria => $values) {
-            $criterias[] = $criteria;
-        }
+        $satisfactionArriveColumns = [
+            'hall_qlt_aff' => 'Qualité du téléaffichage',
+            'bagage_temp_att' => 'Temps attente de récupération bagages',
+            'chariot_disp' => 'Disponibilité des chariots',
+            'chariot_qlt' => 'Qualité des chariots',
+            'confort_climatique' => 'Confort climatique en zone arrivée',
+            'sign_parking' => 'Signalisation des parkings',
+            'sign_chariot' => 'Signalisation des emplacements des chariots',
+            'sign_hall' => 'Signalisation au niveau du Hall arrivée',
+        ];
+
+
+
+#for terminal west
         $countThisMounth = [];
-        foreach ($columns as $columnName => $displayName) {
+        foreach ($properteColumns as $columnName => $displayName) {
             $result = Surveys::select([
                 $columnName,
                 DB::raw("COUNT($columnName) as satisfaction"),
             ])
-                ->where('status', '=', 'arrivee')
                 ->where('terminal', '=', 'Terminal Ouest')
-                ->where('created_at', '>', Carbon::now()->subMonth(1)->toDateTimeString())
+                ->where('created_at', '>', Carbon::now()->subMonths(12)->toDateTimeString())
                 ->groupBy($columnName)
                 ->get();
 
@@ -183,33 +115,282 @@ class HomeController extends Controller
             });
         }
 
-        $nonSatisfaisantCountThis = 0;
-        $moyennementSatisfaisantCountThis = 0;
-        $satisfaisantCountThis = 0;
+        $nonSatisfaisantCountWest = 0;
+        $moyennementSatisfaisantCountWest = 0;
+        $satisfaisantCountWest = 0;
 
         foreach ($countThisMounth as $displayName => $satisfactionLevels) {
             foreach ($satisfactionLevels as $satisfactionLevel => $satisfactionData) {
                 switch ($satisfactionLevel) {
                     case 'Non Satisfaisant':
-                        $nonSatisfaisantCountThis += $satisfactionData['count'];
+                        $nonSatisfaisantCountWest += $satisfactionData['count'];
                         break;
                     case 'Moyennement Satisfaisant':
-                        $moyennementSatisfaisantCountThis += $satisfactionData['count'];
+                        $moyennementSatisfaisantCountWest += $satisfactionData['count'];
                         break;
                     case 'Satisfaisant':
-                        $satisfaisantCountThis += $satisfactionData['count'];
+                        $satisfaisantCountWest += $satisfactionData['count'];
                         break;
                     // Add more cases for other satisfaction levels as needed
                 }
             }
         }
 
-        $thisMonth = [
-            $nonSatisfaisantCountThis,
-            $moyennementSatisfaisantCountThis,
-            $satisfaisantCountThis,
+        $terminalWestNumber = [
+            $satisfaisantCountWest,
+            $moyennementSatisfaisantCountWest,
+            $nonSatisfaisantCountWest,
             // Add more counts for other satisfaction levels as needed
         ];
+
+#for terminal one
+        $countThisMounth = [];
+        foreach ($properteColumns as $columnName => $displayName) {
+            $result = Surveys::select([
+                $columnName,
+                DB::raw("COUNT($columnName) as satisfaction"),
+            ])
+                ->where('terminal', '=', 'Terminal 1')
+                ->where('created_at', '>', Carbon::now()->subMonths(12)->toDateTimeString())
+                ->groupBy($columnName)
+                ->get();
+
+            $result->each(function ($item) use (&$countThisMounth, $displayName, $columnName) {
+                $countThisMounth[$displayName][$item->$columnName] = [
+                    'count' => $item->satisfaction
+                ];
+            });
+        }
+
+        $nonSatisfaisantCountOne = 0;
+        $moyennementSatisfaisantCountOne = 0;
+        $satisfaisantCountOne = 0;
+
+        foreach ($countThisMounth as $displayName => $satisfactionLevels) {
+            foreach ($satisfactionLevels as $satisfactionLevel => $satisfactionData) {
+                switch ($satisfactionLevel) {
+                    case 'Non Satisfaisant':
+                        $nonSatisfaisantCountOne += $satisfactionData['count'];
+                        break;
+                    case 'Moyennement Satisfaisant':
+                        $moyennementSatisfaisantCountOne += $satisfactionData['count'];
+                        break;
+                    case 'Satisfaisant':
+                        $satisfaisantCountOne += $satisfactionData['count'];
+                        break;
+                    // Add more cases for other satisfaction levels as needed
+                }
+            }
+        }
+
+        $terminalOneNumber = [
+            $satisfaisantCountOne,
+            $moyennementSatisfaisantCountOne,
+            $nonSatisfaisantCountOne,
+            // Add more counts for other satisfaction levels as needed
+        ];
+
+#for terminal west
+        $countThisMounth = [];
+        foreach ($satisfactionDepartColumns as $columnName => $displayName) {
+            $result = Surveydepart::select([
+                $columnName,
+                DB::raw("COUNT($columnName) as satisfaction"),
+            ])
+                ->where('terminal', '=', 'Terminal Ouest')
+                ->where('created_at', '>', Carbon::now()->subMonths(12)->toDateTimeString())
+                ->groupBy($columnName)
+                ->get();
+
+            $result->each(function ($item) use (&$countThisMounth, $displayName, $columnName) {
+                $countThisMounth[$displayName][$item->$columnName] = [
+                    'count' => $item->satisfaction
+                ];
+            });
+        }
+
+        $nonSatisfaisantCountWest = 0;
+        $moyennementSatisfaisantCountWest = 0;
+        $satisfaisantCountWest = 0;
+
+        foreach ($countThisMounth as $displayName => $satisfactionLevels) {
+            foreach ($satisfactionLevels as $satisfactionLevel => $satisfactionData) {
+                switch ($satisfactionLevel) {
+                    case 'Non Satisfaisant':
+                        $nonSatisfaisantCountWest += $satisfactionData['count'];
+                        break;
+                    case 'Moyennement Satisfaisant':
+                        $moyennementSatisfaisantCountWest += $satisfactionData['count'];
+                        break;
+                    case 'Satisfaisant':
+                        $satisfaisantCountWest += $satisfactionData['count'];
+                        break;
+                    // Add more cases for other satisfaction levels as needed
+                }
+            }
+        }
+
+        $terminalWestSatisfactionDepart = [
+            $satisfaisantCountWest,
+            $moyennementSatisfaisantCountWest,
+            $nonSatisfaisantCountWest,
+            // Add more counts for other satisfaction levels as needed
+        ];
+
+#for terminal one
+        $countThisMounth = [];
+        foreach ($satisfactionDepartColumns as $columnName => $displayName) {
+            $result = Surveydepart::select([
+                $columnName,
+                DB::raw("COUNT($columnName) as satisfaction"),
+            ])
+                ->where('terminal', '=', 'Terminal 1')
+                ->where('created_at', '>', Carbon::now()->subMonths(12)->toDateTimeString())
+                ->groupBy($columnName)
+                ->get();
+
+            $result->each(function ($item) use (&$countThisMounth, $displayName, $columnName) {
+                $countThisMounth[$displayName][$item->$columnName] = [
+                    'count' => $item->satisfaction
+                ];
+            });
+        }
+
+        $nonSatisfaisantCountOne = 0;
+        $moyennementSatisfaisantCountOne = 0;
+        $satisfaisantCountOne = 0;
+
+        foreach ($countThisMounth as $displayName => $satisfactionLevels) {
+            foreach ($satisfactionLevels as $satisfactionLevel => $satisfactionData) {
+                switch ($satisfactionLevel) {
+                    case 'Non Satisfaisant':
+                        $nonSatisfaisantCountOne += $satisfactionData['count'];
+                        break;
+                    case 'Moyennement Satisfaisant':
+                        $moyennementSatisfaisantCountOne += $satisfactionData['count'];
+                        break;
+                    case 'Satisfaisant':
+                        $satisfaisantCountOne += $satisfactionData['count'];
+                        break;
+                    // Add more cases for other satisfaction levels as needed
+                }
+            }
+        }
+
+        $terminalOneSatisfactionDepart = [
+            $satisfaisantCountOne,
+            $moyennementSatisfaisantCountOne,
+            $nonSatisfaisantCountOne,
+            // Add more counts for other satisfaction levels as needed
+        ];
+
+
+#for terminal west
+        $countThisMounth = [];
+        foreach ($satisfactionArriveColumns as $columnName => $displayName) {
+            $result = PassagerArrive::select([
+                $columnName,
+                DB::raw("COUNT($columnName) as satisfaction"),
+            ])
+                ->where('terminal', '=', 'Terminal Ouest')
+                ->where('created_at', '>', Carbon::now()->subMonths(12)->toDateTimeString())
+                ->groupBy($columnName)
+                ->get();
+
+            $result->each(function ($item) use (&$countThisMounth, $displayName, $columnName) {
+                $countThisMounth[$displayName][$item->$columnName] = [
+                    'count' => $item->satisfaction
+                ];
+            });
+        }
+
+        $nonSatisfaisantCountWest = 0;
+        $moyennementSatisfaisantCountWest = 0;
+        $satisfaisantCountWest = 0;
+
+        foreach ($countThisMounth as $displayName => $satisfactionLevels) {
+            foreach ($satisfactionLevels as $satisfactionLevel => $satisfactionData) {
+                switch ($satisfactionLevel) {
+                    case 'Non Satisfaisant':
+                        $nonSatisfaisantCountWest += $satisfactionData['count'];
+                        break;
+                    case 'Moyennement Satisfaisant':
+                        $moyennementSatisfaisantCountWest += $satisfactionData['count'];
+                        break;
+                    case 'Satisfaisant':
+                        $satisfaisantCountWest += $satisfactionData['count'];
+                        break;
+                    // Add more cases for other satisfaction levels as needed
+                }
+            }
+        }
+
+        $terminalWestSatisfactionArrive = [
+            $satisfaisantCountWest,
+            $moyennementSatisfaisantCountWest,
+            $nonSatisfaisantCountWest,
+            // Add more counts for other satisfaction levels as needed
+        ];
+
+#for terminal one
+        $countThisMounth = [];
+        foreach ($satisfactionArriveColumns as $columnName => $displayName) {
+            $result = PassagerArrive::select([
+                $columnName,
+                DB::raw("COUNT($columnName) as satisfaction"),
+            ])
+                ->where('terminal', '=', 'Terminal 1')
+                ->where('created_at', '>', Carbon::now()->subMonths(12)->toDateTimeString())
+                ->groupBy($columnName)
+                ->get();
+
+            $result->each(function ($item) use (&$countThisMounth, $displayName, $columnName) {
+                $countThisMounth[$displayName][$item->$columnName] = [
+                    'count' => $item->satisfaction
+                ];
+            });
+        }
+
+        $nonSatisfaisantCountOne = 0;
+        $moyennementSatisfaisantCountOne = 0;
+        $satisfaisantCountOne = 0;
+
+        foreach ($countThisMounth as $displayName => $satisfactionLevels) {
+            foreach ($satisfactionLevels as $satisfactionLevel => $satisfactionData) {
+                switch ($satisfactionLevel) {
+                    case 'Non Satisfaisant':
+                        $nonSatisfaisantCountOne += $satisfactionData['count'];
+                        break;
+                    case 'Moyennement Satisfaisant':
+                        $moyennementSatisfaisantCountOne += $satisfactionData['count'];
+                        break;
+                    case 'Satisfaisant':
+                        $satisfaisantCountOne += $satisfactionData['count'];
+                        break;
+                    // Add more cases for other satisfaction levels as needed
+                }
+            }
+        }
+
+        $terminalOneSatisfactionArrive = [
+            $satisfaisantCountOne,
+            $moyennementSatisfaisantCountOne,
+            $nonSatisfaisantCountOne,
+            // Add more counts for other satisfaction levels as needed
+        ];
+
+        $passagerSatisfactionTerminal1 = array_map(function($a, $b) {
+            return $a + $b;
+        }, $terminalOneSatisfactionArrive, $terminalOneSatisfactionDepart);
+
+        $passagerSatisfactionTerminalOuest = array_map(function($a, $b) {
+            return $a + $b;
+        }, $terminalWestSatisfactionArrive, $terminalWestSatisfactionDepart);
+
+
+//        dd($result);
+//        dd($terminalOneSatisfactionDepart);
+//        dd($terminalOneNumber);
 
         $monthPercents = [];
         foreach ($countThisMounth as $element => $subArray) {
@@ -247,7 +428,7 @@ class HomeController extends Controller
         }
 
         $countLastMounth = [];
-        foreach ($columns as $columnName => $displayName) {
+        foreach ($properteColumns as $columnName => $displayName) {
             $result = Surveys::select([
                 $columnName,
                 DB::raw("COUNT($columnName) as satisfaction"),
@@ -305,7 +486,7 @@ class HomeController extends Controller
             'Non Satisfaisant' => [],
         ];
 
-        foreach ($columns as $columnName => $displayName) {
+        foreach ($properteColumns as $columnName => $displayName) {
             $result = Surveys::select([
                 $columnName,
                 DB::raw("COUNT($columnName) as satisfaction"),
@@ -340,26 +521,52 @@ class HomeController extends Controller
 
 //        dd($monthPercents);
 
-//        dd($monthPercents);
+
 
         // return view('pages.touest.arivee', ['parking_stationnement'=> $parking_stationnement, 'data'=> $data]);
-        return view('pages.touest.properte.arivee', compact('report', 'criterias', 'thisMonth', 'lastMonth','satisfaisantCounts','moyennementSatisfaisantCounts','nonSatisfaisantCounts', 'monthPercents', 'criteriaOfPercent', 'percents', 'standardDeviation'));
+        return view('pages.homesgsia', compact('report', 'terminalWestNumber', 'terminalOneNumber','passagerSatisfactionTerminal1','passagerSatisfactionTerminalOuest','satisfaisantCounts','moyennementSatisfaisantCounts','nonSatisfaisantCounts', 'monthPercents', 'criteriaOfPercent', 'percents', 'standardDeviation'));
     }
 
-    public function touestpd()
+    private function ecart_type($donnees)
     {
+        // 0 - Nombre d’éléments dans le tableau
+        $population = count($donnees);
 
-         return view('pages.touest.arivee');
-    }
+        if ($population != 0) {
+            // 1 - somme du tableau
+            $somme_tableau = array_sum($donnees);
 
-    public function touestdsa()
-    {
-        return view('pages.tone.arivee');
-    }
+            // 2 - Calcul de la moyenne
+            $moyenne = $somme_tableau / $population;
 
-    public function touestdsd()
-    {
-        return view('pages.tone.depart');
+            // 3 - écart pour chaque valeur
+            $ecart = [];
+
+            foreach ($donnees as $rating) {
+                // écart entre la valeur et la moyenne
+                $ecart_donnee = floatval($rating) - $moyenne;
+
+                // carré de l'écart
+                $ecart_donnee_carre = $ecart_donnee ** 2;
+
+                // Insertion dans le tableau
+                array_push($ecart, $ecart_donnee_carre);
+            }
+
+            // 4 - somme des écarts
+            $somme_ecart = array_sum($ecart);
+
+            // 5 - division de la somme des écarts par la population
+            $division = $somme_ecart / $population;
+
+            // 6 - racine carrée de la division
+            $ecart_type = sqrt($division);
+        } else {
+            $ecart_type = 0;
+        }
+
+        // 7 - renvoi du résultat
+        return number_format($ecart_type, 2);
     }
 
 }

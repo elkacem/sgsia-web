@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,73 +19,77 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::group(['middleware' => 'auth'] , function() {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'] )-> name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/listuser', [userController::class, 'index'])->name('list');
+    Route::get('/adduser', [userController::class, 'create'])->name('add');
+    Route::post('/adduser', [userController::class, 'store'])->name('store');
+    Route::get('/edituser/{id}', [userController::class, 'edit'])->name('edit');
+    Route::post('/edituser/{id}', [userController::class, 'update'])->name('update');
+    Route::get('/deleteuser/{id}', [userController::class, 'destroy'])->name('delete');
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //    Route::prefix('touest')->group(function () {
-        Route::get('/touestpropertea', [App\Http\Controllers\SurveysController::class, 'index'])->name('touestpropertea');
-        Route::get('/touestproperted', [App\Http\Controllers\SurveysController::class, 'indexd'])->name('touestproperted');
+    Route::get('/touestpropertea', [App\Http\Controllers\SurveysController::class, 'index'])->name('touestpropertea');
+    Route::get('/touestproperted', [App\Http\Controllers\SurveysController::class, 'indexd'])->name('touestproperted');
 
 //         });
-        Route::get('/tonepropertea', [App\Http\Controllers\SurveysController::class, 'indexo'])->name('tonepropertea');
-        Route::get('/toneproperted', [App\Http\Controllers\SurveysController::class, 'indexdo'])->name('toneproperted');
+    Route::get('/tonepropertea', [App\Http\Controllers\SurveysController::class, 'indexo'])->name('tonepropertea');
+    Route::get('/toneproperted', [App\Http\Controllers\SurveysController::class, 'indexdo'])->name('toneproperted');
 
 //    });
 
-        Route::get('/touestpassengera', [App\Http\Controllers\PassagerArriveController::class, 'index'] )-> name('touestpassengera');
-        Route::get('/touestpassengerd', [App\Http\Controllers\SurveydepartController::class, 'index'] )-> name('touestpassengerd');
-        Route::get('/tonepassengera', [App\Http\Controllers\PassagerArriveController::class, 'indexo'] )-> name('tonepassengera');
-        Route::get('/tonepassengerd', [App\Http\Controllers\SurveydepartController::class, 'indexo'] )-> name('tonepassengerd');
-    });
+    Route::get('/touestpassengera', [App\Http\Controllers\PassagerArriveController::class, 'index'])->name('touestpassengera');
+    Route::get('/touestpassengerd', [App\Http\Controllers\SurveydepartController::class, 'index'])->name('touestpassengerd');
+    Route::get('/tonepassengera', [App\Http\Controllers\PassagerArriveController::class, 'indexo'])->name('tonepassengera');
+    Route::get('/tonepassengerd', [App\Http\Controllers\SurveydepartController::class, 'indexo'])->name('tonepassengerd');
+});
 
 
-    // Route::get('/linkstorage', function () {
-    //     Artisan::call('storage:link');
-    // });
+// Route::get('/linkstorage', function () {
+//     Artisan::call('storage:link');
+// });
 
-    // $this->middleware
+// $this->middleware
 
-    // Route::get('/analytics', function() {
-    //     // $category_name = '';
-    //     // $data = [
-    //     //     'category_name' => 'dashboard',
-    //     //     'page_name' => 'analytics',
-    //     //     'has_scrollspy' => 0,
-    //     //     'scrollspy_offset' => '',
-    //     //     'alt_menu' => 0,
-    //     // ];
-    //     // $pageName = 'analytics';
-    //     // return view('dashboard')->with($data);
-    //     return view('layouts.auth');
-    // });
+// Route::get('/analytics', function() {
+//     // $category_name = '';
+//     // $data = [
+//     //     'category_name' => 'dashboard',
+//     //     'page_name' => 'analytics',
+//     //     'has_scrollspy' => 0,
+//     //     'scrollspy_offset' => '',
+//     //     'alt_menu' => 0,
+//     // ];
+//     // $pageName = 'analytics';
+//     // return view('dashboard')->with($data);
+//     return view('layouts.auth');
+// });
 
-    // Route::get('/sales', function() {
-    //     // $category_name = '';
-    //     $data = [
-    //         'category_name' => 'dashboard',
-    //         'page_name' => 'sales',
-    //         'has_scrollspy' => 0,
-    //         'scrollspy_offset' => '',
-    //         'alt_menu' => 0,
-    //     ];
-    //     // $pageName = 'sales';
-    //     return view('dashboard2')->with($data);
-    // });
-
-
-
+// Route::get('/sales', function() {
+//     // $category_name = '';
+//     $data = [
+//         'category_name' => 'dashboard',
+//         'page_name' => 'sales',
+//         'has_scrollspy' => 0,
+//         'scrollspy_offset' => '',
+//         'alt_menu' => 0,
+//     ];
+//     // $pageName = 'sales';
+//     return view('dashboard2')->with($data);
+// });
 
 
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/register', function() {
-    return redirect('/login');
+Route::get('/register', function () {
+    return redirect('register');
 });
-Route::get('/password/reset', function() {
+Route::get('/password/reset', function () {
     return redirect('/login');
 });
 
-Route::get('/', function() {
+Route::get('/', function () {
     return redirect('/home');
 });

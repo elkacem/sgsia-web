@@ -28,7 +28,6 @@ class PassagerArriveController extends Controller
             'sign_parking' => 'Signalisation des parkings',
             'sign_chariot' => 'Signalisation des emplacements des chariots',
             'sign_hall' => 'Signalisation au niveau du Hall arrivée',
-
         ];
 
         foreach ($columns as $columnName => $displayName) {
