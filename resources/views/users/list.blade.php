@@ -47,10 +47,6 @@
                                         <tbody>
                                         @foreach($getRecord as $value)
                                         <tr>
-{{--                                            <td data-field="id" style="width: 80px">1</td>--}}
-{{--                                            <td data-field="name">David McHenry</td>--}}
-{{--                                            <td data-field="age">24</td>--}}
-{{--                                            <td data-field="gender">{{ $value->id }}</td>--}}
                                             <td data-field="gender">{{ $value->name }}</td>
                                             <td data-field="gender">{{ $value->username }}</td>
                                             <td data-field="gender">{{ $value->email }}</td>
@@ -60,7 +56,6 @@
                                                 <a href="{{ route('edit',$value->id) }}" class="btn btn-primary">Editer</a>
                                                 <a href="{{ route('delete',$value->id) }}" class="btn btn-danger">Supprimer</a>
                                             </td>
-
                                         </tr>
                                         @endforeach
                                         </tbody>
