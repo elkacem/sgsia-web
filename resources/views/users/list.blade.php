@@ -52,10 +52,12 @@
                                             <td data-field="gender">{{ $value->email }}</td>
                                             <td data-field="gender">{{ $value->is_admin == 0 ? "Moderateur" : "Admin" }}</td>
                                             <td data-field="gender">{{ $value->created_at->format('Y-m-d') }}</td>
+                                            @if($value->is_admin == 0)
                                             <td>
                                                 <a href="{{ route('edit',$value->id) }}" class="btn btn-primary">Editer</a>
                                                 <a href="{{ route('delete',$value->id) }}" class="btn btn-danger">Supprimer</a>
                                             </td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                         </tbody>

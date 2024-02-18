@@ -52,7 +52,9 @@ class User extends Authenticatable
     }
 
     static function getUser(){
-        return self::select('id', 'name', 'username', 'email', 'is_admin', 'created_at')->orderBy('created_at', 'desc')->get();
+        return self::select('id', 'name', 'username', 'email', 'is_admin', 'created_at')
+                        ->where('is_deleted', '=', 0)
+                        ->orderBy('created_at', 'desc')->get();
     }
 
     public function surveys()

@@ -93,8 +93,12 @@ class userController extends Controller
     public function destroy($id)
     {
         $user = User::getSingle($id);
-        $user->delete();
+//        dd($user);
+        if($user->is_admin == 0 ){
+            $user->is_deleted = 1;
+            $user->save();
+        }
 
-        return redirect()->route('list');
+        return redirect()->route('list')->with('Succes', 'Admin bien deleted');
     }
 }

@@ -20,28 +20,33 @@ use App\Http\Controllers\userController;
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/listuser', [userController::class, 'index'])->name('list');
-    Route::get('/adduser', [userController::class, 'create'])->name('add');
-    Route::post('/adduser', [userController::class, 'store'])->name('store');
-    Route::get('/edituser/{id}', [userController::class, 'edit'])->name('edit');
-    Route::post('/edituser/{id}', [userController::class, 'update'])->name('update');
-    Route::get('/deleteuser/{id}', [userController::class, 'destroy'])->name('delete');
-
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//    Route::prefix('touest')->group(function () {
-    Route::get('/touestpropertea', [App\Http\Controllers\SurveysController::class, 'index'])->name('touestpropertea');
-    Route::get('/touestproperted', [App\Http\Controllers\SurveysController::class, 'indexd'])->name('touestproperted');
 
-//         });
-    Route::get('/tonepropertea', [App\Http\Controllers\SurveysController::class, 'indexo'])->name('tonepropertea');
-    Route::get('/toneproperted', [App\Http\Controllers\SurveysController::class, 'indexdo'])->name('toneproperted');
+    Route::group([
+        'prefix' => 'user',
+        'middleware' => 'is_admin',
+        ],
+        function () {
+        Route::get('/list', [userController::class, 'index'])->name('list');
+        Route::get('/add', [userController::class, 'create'])->name('add');
+        Route::post('/add', [userController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [userController::class, 'edit'])->name('edit');
+        Route::post('/edit/{id}', [userController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [userController::class, 'destroy'])->name('delete');
+    });
+    Route::prefix('touest')->group(function () {
+        Route::get('properte/arrive', [App\Http\Controllers\SurveysController::class, 'index'])->name('touestpropertea');
+        Route::get('properte/depart', [App\Http\Controllers\SurveysController::class, 'indexd'])->name('touestproperted');
+        Route::get('passenger/arrive', [App\Http\Controllers\PassagerArriveController::class, 'index'])->name('touestpassengera');
+        Route::get('passenger/depart', [App\Http\Controllers\SurveydepartController::class, 'index'])->name('touestpassengerd');
+    });
+    Route::prefix('tone')->group(function () {
+        Route::get('properte/arrive', [App\Http\Controllers\SurveysController::class, 'indexo'])->name('tonepropertea');
+        Route::get('properte/depart', [App\Http\Controllers\SurveysController::class, 'indexdo'])->name('toneproperted');
+        Route::get('passenger/arrive', [App\Http\Controllers\PassagerArriveController::class, 'indexo'])->name('tonepassengera');
+        Route::get('passenger/depart', [App\Http\Controllers\SurveydepartController::class, 'indexo'])->name('tonepassengerd');
+    });
 
-//    });
-
-    Route::get('/touestpassengera', [App\Http\Controllers\PassagerArriveController::class, 'index'])->name('touestpassengera');
-    Route::get('/touestpassengerd', [App\Http\Controllers\SurveydepartController::class, 'index'])->name('touestpassengerd');
-    Route::get('/tonepassengera', [App\Http\Controllers\PassagerArriveController::class, 'indexo'])->name('tonepassengera');
-    Route::get('/tonepassengerd', [App\Http\Controllers\SurveydepartController::class, 'indexo'])->name('tonepassengerd');
 });
 
 
