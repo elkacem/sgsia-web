@@ -109,4 +109,37 @@ class userController extends Controller
 
         return redirect()->route('list')->with('Succes', 'Admin bien deleted');
     }
+
+
+    public function editSingle($id)
+    {
+        $data['getRecord'] = User::getSingle($id);
+        if(!empty($data['getRecord'])){
+            $data['header_title'] = "Admin Edit";
+            return view('users.editSingle', $data);
+        }
+        else {
+            abort(404);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateSingle(Request $request, $id)
+    {
+        $user = User::getSingle($id);
+        $user->name = trim($request->name);
+        $user->email = trim($request->email);
+        $user->username = trim($request->username);
+        if(!empty($request->password)){
+            $user->password = Hash::make($request->password);
+        }
+        $user->is_admin = trim($request->is_admin);
+        $user->save();
+
+        return redirect()->route('home')->with('Succes', 'Admin bien updated');
+
+    }
+
 }

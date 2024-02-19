@@ -149,7 +149,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profil</a>
+                        <a class="dropdown-item" href="{{ route('editSingle',auth()->user()->id) }}"><i class="ri-user-line align-middle me-1"></i> Profil</a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();

@@ -22,6 +22,9 @@ use App\Http\Controllers\userController;
 Route::group(['middleware' => ['auth','is_deleted']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::get('/edit/{id}', [userController::class, 'editSingle'])->name('editSingle');
+    Route::post('/edit/{id}', [userController::class, 'updateSingle'])->name('updateSingle');
+
     Route::group([
         'prefix' => 'user',
         'middleware' => 'is_admin',
