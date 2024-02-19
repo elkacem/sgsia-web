@@ -19,7 +19,7 @@ use App\Http\Controllers\userController;
 // });
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','is_deleted']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::group([

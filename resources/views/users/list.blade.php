@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('content')
-
+{{--{{ $numberSondage }}--}}
     <div class="main-content">
 
         <div class="page-content">
@@ -38,7 +38,7 @@
 {{--                                            <th>ID</th>--}}
                                             <th>Nom et Prenom</th>
                                             <th>Username</th>
-                                            <th>Email</th>
+                                            <th>Nombre Sondage</th>
                                             <th>Role</th>
                                             <th>Date Creation</th>
                                             <th>Action</th>
@@ -49,7 +49,7 @@
                                         <tr>
                                             <td data-field="gender">{{ $value->name }}</td>
                                             <td data-field="gender">{{ $value->username }}</td>
-                                            <td data-field="gender">{{ $value->email }}</td>
+                                            <td data-field="gender">{{ $value->surveys_count + $value->surveydepart_count + $value->passager_arrive_count }}</td>
                                             <td data-field="gender">{{ $value->is_admin == 0 ? "Moderateur" : "Admin" }}</td>
                                             <td data-field="gender">{{ $value->created_at->format('Y-m-d') }}</td>
                                             @if($value->is_admin == 0)

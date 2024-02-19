@@ -7,23 +7,24 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class IsAdminMiddleware
+class CheckBanned
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        if (auth()->check()) {
-            $user = auth()->user();
-            // Check if the user is not an admin
-            if (!$user->is_admin) {
-                abort(403);
-            }
-        } else {
-            abort(403);
+        if(auth()->check() && (auth()->user()->is_deleted)){
+            Auth::logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')->with('error', 'Your Account is suspended, please contact Admin.');
+
         }
 
         return $next($request);

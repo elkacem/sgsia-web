@@ -6,7 +6,7 @@
     <meta charset="utf-8"/>
     <title>SGSIA-SURVEY</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
+    <meta content="SGSIA-SURVEY" name="description"/>
     <meta content="Themesdesign" name="author"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -115,42 +115,15 @@
                         <div class="px-lg-2">
                             <div class="row g-0">
                                 <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ asset('assets/images/brands/github.png') }}" alt="Github">
-                                        <span>GitHub</span>
+                                    <a class="dropdown-icon-item" href="https://www.aeroportalger.dz/">
+                                        <img src="{{ asset('assets/images/logo.png') }}" alt="Github">
+                                        <span>SGSIA</span>
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ asset('assets/images/brands/bitbucket.png') }}" alt="bitbucket">
-                                        <span>Bitbucket</span>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ asset('assets/images/brands/dribbble.png') }}" alt="dribbble">
-                                        <span>Dribbble</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="row g-0">
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ asset('assets/images/brands/dropbox.png') }}" alt="dropbox">
-                                        <span>Dropbox</span>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ asset('assets/images/brands/mail_chimp.png') }}" alt="mail_chimp">
-                                        <span>Mail Chimp</span>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#">
-                                        <img src="{{ asset('assets/images/brands/slack.png') }}" alt="slack">
-                                        <span>Slack</span>
+                                    <a class="dropdown-icon-item" href="https://www.facebook.com/profile.php?id=100090921643941">
+                                        <img src="{{ asset('assets/images/facebook.png') }}" alt="bitbucket">
+                                        <span>Facebook</span>
                                     </a>
                                 </div>
                             </div>
@@ -163,7 +136,7 @@
                         <i class="ri-fullscreen-line"></i>
                     </button>
                 </div>
-                
+
 
                 <div class="dropdown d-inline-block user-dropdown">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
@@ -171,25 +144,18 @@
                         <img class="rounded-circle header-profile-user"
                              src="{{ asset('assets/images/users/avatar-1.jpg') }}"
                              alt="Header Avatar">
-                        <span class="d-none d-xl-inline-block ms-1">Julia</span>
+                        <span class="d-none d-xl-inline-block ms-1">{{ auth()->user()->username }}</span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profile</a>
-                        <a class="dropdown-item" href="#"><i class="ri-wallet-2-line align-middle me-1"></i> My
-                            Wallet</a>
-                        <a class="dropdown-item d-block" href="#"><span
-                                class="badge bg-success float-end mt-1">11</span><i
-                                class="ri-settings-2-line align-middle me-1"></i> Settings</a>
-                        <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle me-1"></i> Lock
-                            screen</a>
+                        <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profil</a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();"
                            class="dropdown-item text-danger" href="#"><i
-                                class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
+                                class="ri-shut-down-line align-middle me-1 text-danger"></i> Déconnexion</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
@@ -219,7 +185,7 @@
                 <div class="mt-3">
                     <h4 class="font-size-16 mb-1">{{ auth()->user()->name }}</h4>
                     <span class="text-muted"><i
-                            class="ri-record-circle-line align-middle font-size-14 text-success"></i> Online</span>
+                            class="ri-record-circle-line align-middle font-size-14 text-success"></i> En ligne</span>
                 </div>
             </div>
 

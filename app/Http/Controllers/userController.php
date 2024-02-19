@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PassagerArrive;
+use App\Models\Surveydepart;
+use App\Models\Surveys;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,8 +16,13 @@ class userController extends Controller
      */
     public function index()
     {
+//        $usersWithCounts = User::withCount(['Surveys', 'Surveydepart', 'PassagerArrive'])->get();
+        $getRecord = User::withCount(['Surveys', 'Surveydepart', 'PassagerArrive'])->get();
+
+//        dd($usersWithCounts);
         $data['header_title'] = "Admin Space";
-        $data['getRecord'] = User::getUser();
+//        $data['getRecord'] = User::getUser();
+        $data['getRecord'] = $getRecord;
 //        dd($data);
         return view('users.list', $data);
     }
