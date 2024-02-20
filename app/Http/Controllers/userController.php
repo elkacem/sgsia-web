@@ -93,9 +93,8 @@ class userController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'username' => 'required|string|unique:users,username',
-            'password' => 'required|min:8',
+            'email' => 'required|email|unique:users,email,'. $id,
+            'username' => 'required|string|unique:users,username,'. $id,
             'is_admin' => 'required|boolean',
         ]);
         $user = User::getSingle($id);
