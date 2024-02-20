@@ -121,7 +121,8 @@
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a class="dropdown-icon-item" href="https://www.facebook.com/profile.php?id=100090921643941">
+                                    <a class="dropdown-icon-item"
+                                       href="https://www.facebook.com/profile.php?id=100090921643941">
                                         <img src="{{ asset('assets/images/facebook.png') }}" alt="bitbucket">
                                         <span>Facebook</span>
                                     </a>
@@ -149,7 +150,8 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <a class="dropdown-item" href="{{ route('editSingle',auth()->user()->id) }}"><i class="ri-user-line align-middle me-1"></i> Profil</a>
+                        <a class="dropdown-item" href="{{ route('editSingle',auth()->user()->id) }}"><i
+                                class="ri-user-line align-middle me-1"></i> Profil</a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -162,11 +164,11 @@
                     </div>
                 </div>
 
-{{--                <div class="dropdown d-inline-block">--}}
-{{--                    <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">--}}
-{{--                        <i class="ri-settings-2-line"></i>--}}
-{{--                    </button>--}}
-{{--                </div>--}}
+                {{--                <div class="dropdown d-inline-block">--}}
+                {{--                    <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">--}}
+                {{--                        <i class="ri-settings-2-line"></i>--}}
+                {{--                    </button>--}}
+                {{--                </div>--}}
 
             </div>
         </div>
@@ -250,19 +252,19 @@
                         </ul>
                     </li>
 
-@if(auth()->user()->is_admin)
-                    <li class="menu-title">Utilisateurs</li>
+                    @if(auth()->user()->is_admin)
+                        <li class="menu-title">Utilisateurs</li>
 
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="ri-account-circle-line"></i>
-                            <span>Authentification</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('list') }}">Utilisateurs</a></li>
-                        </ul>
-                    </li>
-    @endif
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="ri-account-circle-line"></i>
+                                <span>Authentification</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('list') }}">Utilisateurs</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <!-- Sidebar -->
@@ -272,6 +274,7 @@
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
+
 @yield('content')
 <!-- end main content-->
 

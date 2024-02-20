@@ -1,8 +1,3 @@
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
 <!doctype html>
 <html lang="en">
 
@@ -29,6 +24,11 @@
 <div class="bg-overlay"></div>
 <div class="wrapper-page">
     <div class="container-fluid p-0">
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="card">
             <div class="card-body">
 

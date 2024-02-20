@@ -6,7 +6,17 @@
         <div class="page-content">
             <div class="container-fluid">
 
-                <!-- start page title -->
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+            @endif
+
+            <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -34,13 +44,13 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Nom et Prenom</label>
-                                                <input type="text" class="form-control" name="name"  placeholder="Nom et prenom" required>
+                                                <input type="text" class="form-control" name="name" value="{{ old('name') }}"  placeholder="Nom et prenom" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">UserName</label>
-                                                <input type="text" class="form-control" name="username"  placeholder="Username" required>
+                                                <input type="text" class="form-control" name="username" value="{{ old('username') }}"  placeholder="Username" required>
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +60,7 @@
                                                 <label>Email</label>
                                                 <div>
                                                     <input type="email" class="form-control" required
-                                                           parsley-type="email" name="email" placeholder="Enter a valid e-mail"/>
+                                                           parsley-type="email" name="email" value="{{ old('email') }}" placeholder="Enter a valid e-mail"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -68,7 +78,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">State</label>
+                                                <label class="form-label">Utilisateur</label>
                                                 <select class="form-select" name="is_admin" required>
                                                     {{--                                                    <option selected disabled value="0">Moderateur</option>--}}
                                                     <option selected value="0">Moderateur</option>

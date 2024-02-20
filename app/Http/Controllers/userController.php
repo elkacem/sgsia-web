@@ -17,7 +17,10 @@ class userController extends Controller
     public function index()
     {
 //        $usersWithCounts = User::withCount(['Surveys', 'Surveydepart', 'PassagerArrive'])->get();
-        $getRecord = User::withCount(['Surveys', 'Surveydepart', 'PassagerArrive'])->get();
+          $getRecord = User::withCount(['Surveys', 'Surveydepart', 'PassagerArrive'])
+            ->where('is_deleted', '=', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
 //        dd($usersWithCounts);
         $data['header_title'] = "Admin Space";
@@ -41,7 +44,13 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request ->all());
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'username' => 'required|string|unique:users,username',
+            'password' => 'required|min:8',
+            'is_admin' => 'required|boolean',
+        ]);
         $user = new User;
         $user->name = trim($request->name);
         $user->email = trim($request->email);
@@ -50,7 +59,8 @@ class userController extends Controller
         $user->is_admin = trim($request->is_admin);
         $user->save();
 
-        return redirect()->route('list')->with('Succes', 'Admin bien ajout');
+
+        return redirect()->route('list')->with('success', 'Utilisateur ajouté avec succès');
     }
 
     /**
@@ -81,6 +91,13 @@ class userController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'username' => 'required|string|unique:users,username',
+            'password' => 'required|min:8',
+            'is_admin' => 'required|boolean',
+        ]);
         $user = User::getSingle($id);
         $user->name = trim($request->name);
         $user->email = trim($request->email);
@@ -91,7 +108,7 @@ class userController extends Controller
         $user->is_admin = trim($request->is_admin);
         $user->save();
 
-        return redirect()->route('list')->with('Succes', 'Admin bien updated');
+        return redirect()->route('list')->with('success', 'Utilisateur a été mis à jour avec succès');
 
     }
 
@@ -107,7 +124,7 @@ class userController extends Controller
             $user->save();
         }
 
-        return redirect()->route('list')->with('Succes', 'Admin bien deleted');
+        return redirect()->route('list')->with('success', 'Utilisateur supprimé avec succès');
     }
 
 
@@ -128,6 +145,11 @@ class userController extends Controller
      */
     public function updateSingle(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,'. $id,
+            'username' => 'required|string|unique:users,username,'. $id,
+        ]);
         $user = User::getSingle($id);
         $user->name = trim($request->name);
         $user->email = trim($request->email);
@@ -135,10 +157,9 @@ class userController extends Controller
         if(!empty($request->password)){
             $user->password = Hash::make($request->password);
         }
-        $user->is_admin = trim($request->is_admin);
         $user->save();
 
-        return redirect()->route('home')->with('Succes', 'Admin bien updated');
+        return redirect()->route('home')->with('success', 'Utilisateur a été mis à jour avec succès');
 
     }
 

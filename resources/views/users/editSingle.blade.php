@@ -5,6 +5,15 @@
 
         <div class="page-content">
             <div class="container-fluid">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+            @endif
 
                 <!-- start page title -->
                 <div class="row">
@@ -64,24 +73,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">State</label>
-                                                <select class="form-select" name="is_admin" required>
-                                                    {{--                                                    <option selected disabled value="0">Moderateur</option>--}}
-                                                    <option selected value="0">Moderateur</option>
-                                                    <option value="1">Administrateur</option>
-                                                </select>
-                                                <div class="invalid-feedback">
-                                                    Please select a valid state.
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div>
                                         <button class="btn btn-primary" type="submit">Mettre a jour</button>
                                     </div>
