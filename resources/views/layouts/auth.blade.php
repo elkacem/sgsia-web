@@ -253,6 +253,20 @@
                     </li>
 
                     @if(auth()->user()->is_admin)
+                        <li class="menu-title">Commentaire</li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="ri-message-line"></i>
+                                <span>Commentaire</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('listComments') }}">Commentaire</a></li>
+                            </ul>
+                        </li>
+                    @endif
+
+                    @if(auth()->user()->is_admin)
                         <li class="menu-title">Utilisateurs</li>
 
                         <li>

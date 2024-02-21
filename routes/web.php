@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,15 @@ Route::group(['middleware' => ['auth','is_deleted']], function () {
         Route::get('passenger/arrive', [App\Http\Controllers\PassagerArriveController::class, 'indexo'])->name('tonepassengera');
         Route::get('passenger/depart', [App\Http\Controllers\SurveydepartController::class, 'indexo'])->name('tonepassengerd');
     });
+
+    Route::group([
+        'prefix' => 'comment',
+        'middleware' => 'is_admin',
+    ],
+        function () {
+            Route::get('/list', [CommentsController::class, 'index'])->name('listComments');
+            Route::get('/delete/{id}', [CommentsController::class, 'destroy'])->name('deleteComment');
+        });
 
 });
 

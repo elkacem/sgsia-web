@@ -129,13 +129,17 @@ class userController extends Controller
 
     public function editSingle($id)
     {
-        $data['getRecord'] = User::getSingle($id);
-        if(!empty($data['getRecord'])){
-            $data['header_title'] = "Admin Edit";
-            return view('users.editSingle', $data);
+        if ($id == auth()->user()->id) {
+            $data['getRecord'] = User::getSingle($id);
+            if (!empty($data['getRecord'])) {
+                $data['header_title'] = "Admin Edit";
+                return view('users.editSingle', $data);
+            } else {
+                abort(404);
+            }
         }
         else {
-            abort(404);
+            abort(403);
         }
     }
 
@@ -144,21 +148,28 @@ class userController extends Controller
      */
     public function updateSingle(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,'. $id,
-            'username' => 'required|string|unique:users,username,'. $id,
-        ]);
-        $user = User::getSingle($id);
-        $user->name = trim($request->name);
-        $user->email = trim($request->email);
-        $user->username = trim($request->username);
-        if(!empty($request->password)){
-            $user->password = Hash::make($request->password);
-        }
-        $user->save();
+        if ($id == auth()->user()->id){
+            $request->validate([
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users,email,'. $id,
+                'username' => 'required|string|unique:users,username,'. $id,
+            ]);
+            $user = User::getSingle($id);
+            $user->name = trim($request->name);
+            $user->email = trim($request->email);
+            $user->username = trim($request->username);
+            if(!empty($request->password)){
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
 
-        return redirect()->route('home')->with('success', 'Utilisateur a été mis à jour avec succès');
+            return redirect()->route('home')->with('success', 'Utilisateur a été mis à jour avec succès');
+
+        }
+
+        else {
+            abort(403);
+            }
 
     }
 

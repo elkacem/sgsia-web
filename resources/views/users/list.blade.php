@@ -60,7 +60,7 @@
                                             @if($value->is_admin == 0)
                                             <td>
                                                 <a href="{{ route('edit',$value->id) }}" class="btn btn-primary">Editer</a>
-                                                <a href="{{ route('delete',$value->id) }}" class="btn btn-danger">Supprimer</a>
+                                                <a onclick="return confirm('Are you sure?')" href="{{ route('delete',$value->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i> supprimer</a>
                                             </td>
                                             @endif
                                         </tr>
@@ -75,9 +75,5 @@
             </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
-
-
-    </div>
 
 @endsection
