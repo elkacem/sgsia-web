@@ -37,12 +37,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Suggestions des passagers sur la propriété</h4>
+                                <h4 class="card-title">Suggestions des passagers sur la satisfaction</h4>
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap"
                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                     <tr>
-{{--                                        <th>ID</th>--}}
+                                        {{--                                            <th>ID</th>--}}
                                         <th>Utilisateur</th>
                                         <th>Terminal</th>
                                         <th>Status</th>
@@ -51,11 +51,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($getRecord as $value)
+                                    @foreach($getRecordDepart as $value)
                                         <tr>
+
                                             <td data-field="gender">{{ $value->name }}</td>
                                             <td data-field="gender">{{ $value->terminal }}</td>
-                                            <td data-field="gender">{{ $value->status }}</td>
+                                            <td data-field="gender">Depart</td>
                                             <td data-field="gender">
                                                 <p style="word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                                                     {{ $value->suggestion }}
@@ -63,7 +64,27 @@
                                             </td>
                                             @if($value->is_admin == 0)
                                                 <td>
-                                                    <a href="{{ route('deleteComment',$value->id) }}"
+                                                    <a href="{{ route('deleteCommentSatisfaction', [$value->status,$value->id]) }}"
+                                                       class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+
+                                    @foreach($getRecordArrive as $value)
+                                        <tr>
+
+                                            <td data-field="gender">{{ $value->name }}</td>
+                                            <td data-field="gender">{{ $value->terminal }}</td>
+                                            <td data-field="gender">Arrivée</td>
+                                            <td data-field="gender">
+                                                <p style="word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
+                                                    {{ $value->suggestion }}
+                                                </p>
+                                            </td>
+                                            @if($value->is_admin == 0)
+                                                <td>
+                                                    <a href="{{ route('deleteCommentSatisfaction', [$value->status, $value->id]) }}"
                                                        class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             @endif
