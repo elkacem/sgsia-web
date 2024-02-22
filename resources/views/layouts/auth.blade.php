@@ -253,17 +253,31 @@
                     </li>
 
                     @if(auth()->user()->is_admin)
-                        <li class="menu-title">Commentaire</li>
+                        <li class="menu-title">Suggestions</li>
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="ri-message-line"></i>
-                                <span>Commentaire</span>
+                                <span>Suggestions</span>
                             </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('listComments') }}">Commentaire</a></li>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow">Propreté</a>
+                                    <ul class="sub-menu" aria-expanded="true">
+                                        <li><a href="{{ route('listComments') }}">Suggestions sur la propriété</a></li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow">Satisfaction</a>
+                                    <ul class="sub-menu" aria-expanded="true">
+                                        <li><a href="{{ route('listCommentssatisfaction') }}">Suggestions sur la satisfaction</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
+
+
                     @endif
 
                     @if(auth()->user()->is_admin)
@@ -272,7 +286,7 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="ri-account-circle-line"></i>
-                                <span>Authentification</span>
+                                <span>Gestion des comptes</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('list') }}">Utilisateurs</a></li>

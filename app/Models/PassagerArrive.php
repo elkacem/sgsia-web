@@ -14,4 +14,8 @@ class PassagerArrive extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    static function getSingle($id){
+        return self::find($id);
+    }
 }

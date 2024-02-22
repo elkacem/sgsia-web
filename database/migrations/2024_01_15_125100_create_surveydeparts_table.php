@@ -56,7 +56,8 @@ return new class extends Migration
             $table->enum('signalisation_hall'      ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
 
 
-            $table->text('suggestion')->nullable();;
+            $table->text('suggestion')->nullable();
+            $table->integer('status')->default(0)->unsigned();
 
             $table->timestamps();
         });

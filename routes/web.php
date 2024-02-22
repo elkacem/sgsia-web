@@ -57,7 +57,9 @@ Route::group(['middleware' => ['auth','is_deleted']], function () {
     ],
         function () {
             Route::get('/list', [CommentsController::class, 'index'])->name('listComments');
+            Route::get('/listSatisfaction', [CommentsController::class, 'indexSatisfaction'])->name('listCommentssatisfaction');
             Route::get('/delete/{id}', [CommentsController::class, 'destroy'])->name('deleteComment');
+            Route::get('/deleteSatisfaction/{status}/{id}', [CommentsController::class, 'destroySatisfaction'])->name('deleteCommentSatisfaction');
         });
 
 });

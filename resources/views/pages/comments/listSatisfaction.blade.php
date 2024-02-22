@@ -45,7 +45,7 @@
                                         {{--                                            <th>ID</th>--}}
                                         <th>Utilisateur</th>
                                         <th>Terminal</th>
-                                        <th>Status</th>
+                                        <th>Zone</th>
                                         <th>Commentaire</th>
                                         <th>Action</th>
                                     </tr>

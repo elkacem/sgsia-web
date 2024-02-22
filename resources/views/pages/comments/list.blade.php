@@ -37,7 +37,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Suggestions des passagers sur la propriété</h4>
+                                <h4 class="card-title">Suggestions des passagers sur la propreté</h4>
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap"
                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
@@ -45,7 +45,7 @@
 {{--                                        <th>ID</th>--}}
                                         <th>Utilisateur</th>
                                         <th>Terminal</th>
-                                        <th>Status</th>
+                                        <th>Zone</th>
                                         <th>Commentaire</th>
                                         <th>Action</th>
                                     </tr>

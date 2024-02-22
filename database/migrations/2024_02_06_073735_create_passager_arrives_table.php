@@ -50,7 +50,8 @@ return new class extends Migration
             $table->enum('sign_hall'            ,['Satisfaisant', 'Moyennement Satisfaisant', 'Non Satisfaisant']);
 
 
-            $table->text('suggestion')->nullable();;
+            $table->text('suggestion')->nullable();
+            $table->integer('status')->default(1)->unsigned();
 
 
             $table->timestamps();
