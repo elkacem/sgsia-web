@@ -211,6 +211,11 @@ Route::post('/login', function (Request $request) {
         ]);
     }
 
+    // Check user suspension status
+    if ($user->is_deleted  === 1) {
+        throw ValidationException::withMessages(['User is suspended. Please contact support.']);
+    }
+
     $token = $user->createToken($request->device_name)->plainTextToken;
     return response()->json([
         'token' => $token,
