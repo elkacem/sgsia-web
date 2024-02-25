@@ -607,7 +607,7 @@ class HomeController extends Controller
 
 
 
-//        dd($TerminalOnecountProperte);
+//        dd($report);
 
 
 

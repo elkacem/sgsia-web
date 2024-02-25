@@ -251,7 +251,7 @@ class SurveysController extends Controller
 
 //        dd($monthPercents);
 
-//        dd($monthPercents);
+//        dd($report);
 
         // return view('pages.touest.arivee', ['parking_stationnement'=> $parking_stationnement, 'data'=> $data]);
         return view('pages.touest.properte.arivee', compact('report', 'criterias', 'thisMonth', 'lastMonth','satisfaisantCounts','moyennementSatisfaisantCounts','nonSatisfaisantCounts', 'monthPercents', 'criteriaOfPercent', 'percents', 'standardDeviation'));
@@ -495,6 +495,7 @@ class SurveysController extends Controller
 //        dd($monthPercents);
 
 //        dd($monthPercents);
+//        dd($report);
 
         // return view('pages.touest.arivee', ['parking_stationnement'=> $parking_stationnement, 'data'=> $data]);
         return view('pages.touest.properte.depart', compact('report', 'criterias', 'thisMonth', 'lastMonth','satisfaisantCounts','moyennementSatisfaisantCounts','nonSatisfaisantCounts', 'monthPercents', 'criteriaOfPercent', 'percents', 'standardDeviation'));
